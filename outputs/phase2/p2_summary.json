@@ -1,0 +1,72 @@
+{
+  "final_primary_table": "outputs\\phase2\\analysis_table_final.parquet",
+  "final_rows": 95296,
+  "final_columns": 71,
+  "late_orders": 6353,
+  "on_time_or_early": 88943,
+  "phase1_rows": 95299,
+  "phase2_excluded": 3,
+  "phase2_exclusion_rule": "review answered before the order was purchased (review_answer_timestamp < order_purchase_timestamp)",
+  "excluded_order_ids": [
+    "ebc94658c583ab37ad4f8e9091c4bef2",
+    "4bb9c2002502ca416276dc1ff5efb1b3",
+    "4a62fb19d5fa08fb514619dfcc617b3d"
+  ],
+  "audited_table": "outputs\\phase2\\analysis_table_audited.parquet",
+  "X_encoded_final": {
+    "instances": 95296,
+    "attributes": 167,
+    "product": 15914432,
+    "reimputed": {
+      "payment_total": {
+        "filled": 1,
+        "median_final_sample": 105.28
+      },
+      "n_payment_records": {
+        "filled": 1,
+        "median_final_sample": 1.0
+      },
+      "max_installments": {
+        "filled": 1,
+        "median_final_sample": 2.0
+      },
+      "weight_total_g": {
+        "filled": 16,
+        "median_final_sample": 750.0
+      },
+      "volume_total_cm3": {
+        "filled": 16,
+        "median_final_sample": 7220.0
+      }
+    },
+    "constant_columns_dropped": []
+  },
+  "columns_added_in_phase2": [
+    "has_any_text",
+    "flag_title_only",
+    "flag_whitespace_comment",
+    "flag_category_unknown",
+    "flag_dims_missing",
+    "flag_zero_weight_product",
+    "flag_payment_mismatch",
+    "flag_installments_zero",
+    "flag_wait_over_60",
+    "flag_delay_over_30",
+    "flag_promised_day_positive_delay",
+    "flag_answered_over_60",
+    "flag_review_before_purchase",
+    "flag_lifecycle_inconsistent",
+    "flag_repeat_customer",
+    "flag_sparse_period_2016"
+  ],
+  "original_values_changed": false,
+  "pct_without_comment_final": 59.39,
+  "cleaning_log_entries_by_category": {
+    "Retained and flagged": 15,
+    "Missing-value handling": 8,
+    "Excluded": 5,
+    "Corrected": 3
+  },
+  "encoding_checks_passed": true,
+  "reconciliation_passed": true
+}

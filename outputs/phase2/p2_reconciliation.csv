@@ -1,0 +1,17 @@
+,passed
+excluded in log + final rows = source orders,True
+funnel removals (Phase 1 + step 6) = excluded in log,True
+"Phase 1 exclusions not double-counted (4,142 + 3)",True
+step 6 removed exactly 3 orders,True
+final rows = unique order_id,True
+"final rows = 95,296",True
+"late orders = 6,353; on time or early = 88,943",True
+no retained review answered before purchase,True
+every flag's log count = its sum in the final table,True
+quality-flag CSV counts = final and audited table sums,True
+audited table marks exactly the excluded orders,True
+audited minus excluded = final (same order),True
+"final table, outcomes_final and X_encoded_final share order_id order",True
+X_encoded_final has no missing values,True
+"X_encoded_final instances x attributes >= 3,000,000",True
+"Phase 1 outputs untouched (still 95,299 rows)",True

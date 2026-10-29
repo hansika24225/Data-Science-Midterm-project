@@ -1,0 +1,15 @@
+measure,value
+orders with |payment - (price + freight)| > 1 BRL,245
+  of which payment is HIGHER,227
+  of which payment is LOWER,18
+median absolute difference (BRL),7.79
+median difference as share of price + freight,0.106
+share of HIGHER-payment orders paid in > 1 instalment,0.987
+share of ALL orders paid in > 1 instalment,0.514
+share of mismatches that used a voucher,0.02
+orders with a gap in payment_sequential numbering,77
+  of which are mismatches,0
+orders with no payment record,1
+payment records with 0 instalments,2
+payment records with value 0 (all vouchers?),4
+  payment types of zero-value records,{'voucher': 4}

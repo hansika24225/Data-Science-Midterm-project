@@ -1,0 +1,19 @@
+,passed
+"input sample is the cleaned 95,296-order table",True
+"five primary hypotheses, each with exactly one p-value",True
+Holm applied to the five primary p-values only,True
+Holm-adjusted >= raw for every test,True
+primary sample sizes match the data,True
+T3 sample = eligible bands only,True
+sensitivity sample sizes match their definitions,True
+S2 has one order per customer,True
+S1 contains no review answered before delivery,True
+S3 contains no shared review,True
+effect table agrees with the primary results table,True
+sensitivity table agrees with the primary results table,True
+every primary estimate and CI is finite,True
+no placeholder text in result tables,True
+all figures written,True
+Phase 2 table unchanged on disk (same SHA-256 as at load),True
+every alternative test agrees with its primary test (direction and decision),True
+bootstrap reproducible with the fixed seed,True

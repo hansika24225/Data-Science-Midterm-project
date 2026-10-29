@@ -1,0 +1,22 @@
+check,orders,range_of_values,unit,likely_explanation,handling,variable_used_in_analysis
+delivered before purchase,0,,hours,would be impossible,none found,yes
+estimated date before purchase,0,,hours,would be impossible,none found,yes
+approved before purchase,0,,hours,would be impossible,none found,no
+handed to carrier before purchase,164,0.0 to 4109.1,hours before purchase,impossible order; most likely a logging error in the carrier timestamp,flagged (flag_lifecycle_inconsistent); column unused,no
+customer delivery before carrier hand-over,23,0.4 to 386.3,hours,impossible order; most likely the carrier scan was logged late,flagged (flag_lifecycle_inconsistent); column unused,no
+handed to carrier before approval,1341,0.0 to 4109.3,hours,"approval logged after dispatch; possible for some payment flows, cause not recorded","retained; plausible process order, column unused",no
+survey created before purchase,3,115.4 to 878.9,hours,review probably refers to another purchase (two of three share a review_id),excluded from the primary sample (section 7),yes (outcome)
+review answered before survey created,0,,hours,would be impossible,none found,yes
+review answered before purchase,3,41.3 to 788.6,hours,same three orders as above,excluded from the primary sample (section 7),yes (outcome)
+review answered before actual delivery,4627,0.0 to 4482.3,hours,"for late orders the survey is typically created about 2 days after the promised date, before arrival (Phase 1)","retained and flagged (review_before_delivery, D4)",yes
+waiting time zero or negative,0,,days,would be impossible,none found,yes
+waiting time under 1 day,13,0.5 to 1.0,days,very fast delivery; plausible for nearby sellers,retained,yes
+waiting time over 60 days,290,60.0 to 208.4,days,long but possible deliveries; no evidence in the data that they are errors,retained and flagged (flag_wait_over_60),yes
+more than 30 days late,341,30.0 to 189.0,days,severe but possible delays; no evidence of error,retained and flagged (flag_delay_over_30),yes
+more than 30 days early,2322,-146.0 to -30.0,days,Olist pads its estimates; early arrival is common,retained,yes
+promised in under 3 days,189,2.0 to 3.0,days,fast local shipping,retained,yes
+promised over 60 days,232,60.0 to 155.1,days,long promised times; cause not recorded,retained,yes
+delay_days > 0 but is_late = 0,1269,0.0 to 1.0,days,delivered later in the day on the promised date (estimate stored as midnight),correct under D3; flagged (flag_promised_day_positive_delay),yes
+answered over 60 days after delivery,305,60.1 to 519.0,days,customer answered long after delivery; cause not recorded,retained and flagged (flag_answered_over_60),yes
+approval timestamp missing,14,,,not recorded,kept missing; unused,no
+carrier timestamp missing,1,,,not recorded,kept missing; unused,no

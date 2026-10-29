@@ -1,0 +1,22 @@
+test,check,value,criterion,status,consequence
+all,"sample validated (rows, IDs, definitions)",17 checks passed,all pass,pass,tests use the cleaned primary sample
+all,missing values in tested columns,0,0,pass,no imputation needed
+all,independence: repeat customers,"5,163 orders from 2,450 customers",ideally 0,concern,S2 keeps one order per customer
+all,independence: shared review records,867 orders,ideally 0,concern,S3 excludes them
+all,outliers & tail bounds (Markov/Chebyshev),"none removed; P(wait>=30d)=0.046<=Markov 0.417; P(|wait-mu|>=2sd)=0.040<=0.250",no arbitrary removal; bounds satisfied,pass,"rank-based checks (Mann-Whitney, Spearman) are robust to extremes"
+T1,group sizes for the central limit theorem,"late 6,353, on time 88,943",>= 30 per group,pass,sample means are approximately normal despite skewed scores
+T1,equal variances (Brown-Forsythe Levene),"variance ratio = 1.88; Brown-Forsythe F = 1350.88, p = 1.15e-293",not required by Welch,pass (Welch),Welch's df used; Student's t would be inappropriate
+T1,"ordinal, skewed outcome","skewness late 0.73, on time -1.74",mean is interpretable with care,caution,Mann-Whitney U and the low-score share (Test 2) reported alongside
+T1,ties in Mann-Whitney,17.1% of late/on-time pairs tied,tie correction needed,handled,tie-corrected variance; effect counts ties as 1/2
+T2,expected cell counts,minimum 812,>= 5 in every cell,pass,normal approximation valid
+T3,overlap of waiting times (strata eligibility),"eligible 8-14, 15-21, 22-28, 29-42; excluded 0-7, 43-60, 60+",>= 100 late and >= 100 on-time orders per band,applied,"27,216 orders outside the overlap are not used by Test 3"
+T3,expected cell counts per stratum,minimum 28,>= 5,pass,CMH chi-square approximation valid
+T3,homogeneity of odds ratios,Breslow-Day-Tarone p 5.28e-06; ORs 5.04-9.50,material if p < 0.05 and max/min > 2,not material,stratum-specific ORs reported
+T3,balance of waiting time within bands,8-14: 10.9 vs 10.0 d; 15-21: 18.0 vs 16.6 d; 22-28: 24.8 vs 23.3 d; 29-42: 33.9 vs 30.8 d,medians close within a band,caution,late orders wait somewhat longer within some bands; half-week strata sensitivity reported
+T4,delay measure agrees with lateness,delay_calendar_days >= 1 for all late orders; > 0 iff is_late,exact agreement,pass,"calendar-day delay used, consistent with rule D3"
+T4,ties,"113 distinct delays, 5 distinct scores",average ranks,handled,Spearman uses average ranks; bootstrap CI does not rely on the t approximation
+T4,monotonic (not necessarily linear) relationship,see P4_F3,Spearman measures monotonic association,pass,
+T5,expected cell counts,minimum 2580,>= 5 in every cell,pass,normal approximation valid
+T5,has_comment vs has_any_text,has_comment = message only (validated in 4A),use has_comment as primary,pass,has_any_text reported as sensitivity
+all,review timing,70.0% of late vs 0.2% of on-time reviews answered before delivery,same experience being rated,concern,S1 (after delivery only) reported for every test
+all,random seeds,"seed 558, 5000 bootstrap resamples",fixed,pass,bootstrap results reproducible

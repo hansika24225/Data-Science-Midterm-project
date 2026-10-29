@@ -1,0 +1,8 @@
+item,value
+orders in source,99441
+rows in analysis table,95299
+columns in analysis table,55
+late orders (calendar day),6353
+missing cells in analysis table,140755
+encoded matrix rows x columns,95299 x 167
+rows removed by Phase 1 filters,4142

@@ -1,0 +1,32 @@
+issue_id,category,source_or_feature,problem,records_affected,decision,reason,changed_or_removed,impact_on_primary_sample,limitation_or_bias,sensitivity_recommended
+C01,Corrected,"review_before_delivery, review_lag_days",Comparing survey creation date vs review answer timestamp,713,computed from review_answer_timestamp vs delivery timestamp,only the answer time shows whether the customer had the parcel,feature values changed; no rows,none (classification of 713 orders changed),none,no
+C02,Corrected,products.product_category_name -> translation,2 categories have no English name,22,"documented English names added (pc_gamer, portable_kitchen_food_preparers)",avoid losing real categories,translation added; no rows,none,"translation is ours, not Olist's",no
+C03,Corrected,04_feature_dictionary.csv,"3 analysis columns undocumented: seller_states, payment_types, payment_missing",3,complete dictionary written (p2_feature_dictionary.csv),every column must be explainable,documentation only,none,none,no
+E04,Excluded,orders / reviews,not delivered,2963,removed by Phase 1 funnel step '1. status == delivered',eligibility rule,removed,"-2,963 orders",excluded orders may differ systematically (e.g. canceled orders),no
+E05,Excluded,orders / reviews,delivered but no arrival time,8,removed by Phase 1 funnel step '2. delivery timestamp present',eligibility rule,removed,-8 orders,excluded orders may differ systematically (e.g. canceled orders),no
+E06,Excluded,orders / reviews,"no review, so no outcome",646,removed by Phase 1 funnel step '4. at least one review',eligibility rule,removed,-646 orders,excluded orders may differ systematically (e.g. canceled orders),no
+E07,Excluded,orders / reviews,"several reviews, ambiguous outcome (D2)",525,removed by Phase 1 funnel step '5. exactly one review',eligibility rule,removed,-525 orders,excluded orders may differ systematically (e.g. canceled orders),yes (keep-latest rule)
+E08,Excluded,flag_review_before_purchase,review answered before the order was purchased,3,removed by Phase 2 funnel step 6; kept and marked in analysis_table_audited,the rating cannot be about an order that did not yet exist; 2 of 3 reviews are shared with another order,removed from the primary sample; source and audited table unchanged,"-3 orders (95,299 -> 95,296); all on time, late count unchanged","negligible: 3 of 88,946 on-time orders",no
+R09,Retained and flagged,review_before_delivery,review answered before actual delivery,4624,kept; D4,experience while waiting is part of lateness,no,none,mixes 'waiting' and 'received' ratings,yes: exclude them
+R10,Retained and flagged,review_shared_across_orders,one review record attached to several orders,867,kept; D5,outcome is clear,no,none,same rating counted for several orders: weakens independence,yes: exclude them
+R11,Retained and flagged,flag_payment_mismatch,payment differs from price + freight by > 1 BRL,245,kept as recorded,pattern fits instalment interest; not provable,no,none,payment_total is not a clean price measure,no
+R12,Retained and flagged,flag_installments_zero,card payment with 0 instalments,2,kept as recorded,invalid value but unused by the question,no,none,none for the question,no
+R13,Retained and flagged,flag_zero_weight_product,product weight recorded as 0 g,6,kept as recorded,cannot know the true weight,no,none,weight slightly understated,no
+R14,Retained and flagged,flag_wait_over_60,waiting time over 60 days,290,kept,possible long deliveries; no arbitrary cut,no,none,heavy right tail: prefer robust statistics,yes: robust tests
+R15,Retained and flagged,flag_delay_over_30,more than 30 days late,341,kept,severe but possible delays; no evidence of error,no,none,heavy tail,yes: robust tests
+R16,Retained and flagged,flag_promised_day_positive_delay,delay_days > 0 but is_late = 0,1269,kept; correct under D3,estimate stored as midnight,no,none,do not read small positive delay as late,yes: timestamp rule
+R17,Retained and flagged,flag_answered_over_60,answered over 60 days after delivery,305,kept,late answers are still answers,no,none,memory may fade,no
+R18,Retained and flagged,flag_lifecycle_inconsistent,carrier date before purchase or after customer delivery,187,kept; columns unused,affects only unused timestamps,no,none,none for the question,no
+R19,Retained and flagged,flag_title_only,title but no message,1701,kept; has_any_text added,a title is still written feedback,no,none,has_comment undercounts writing,yes: has_any_text
+R20,Retained and flagged,flag_repeat_customer,customer with several eligible orders,5163,kept,real orders,no,none,clustered observations,yes: one order per customer
+R21,Retained and flagged,flag_sparse_period_2016,2016 purchases (thin data),262,kept,real orders,no,none,unstable monthly estimates for 2016,no (care in Phase 3)
+R22,Retained and flagged,payments.payment_sequential,gap in payment sequence numbers,77,kept,no gap coincides with a payment mismatch,no,none,none found,no
+R23,Retained and flagged,freight_ratio,freight greater than item price,3031,kept,cheap items with standard freight are real,no,none,skewed ratio: prefer robust statistics,no
+M24,Missing-value handling,review_comment_message,no comment message (null),56574,kept missing; has_comment = 0,rating without writing is allowed,no,none,none,no
+M25,Missing-value handling,review_comment_message,comment of spaces only,26,text unchanged; has_comment = 0,no content,no,none,none,no
+M26,Missing-value handling,review_comment_title,no title,84128,kept missing; has_title = 0,titles are optional,no,none,none,no
+M27,Missing-value handling,product_category_name,order contains an uncategorised item,1374,'unknown' at order level; flag,no category invented,no,none,none,no
+M28,Missing-value handling,"weight_total_g, volume_total_cm3",item weight or size missing,16,NaN in table; median in X only,total unknown if any item unknown,no (imputation only in X),none,imputed values carry no information,no
+M29,Missing-value handling,"payment_total, n_payment_records, max_installments, payment_types",no payment record,1,NaN in table; median in X; pay__ = 0,source has no record,no (imputation only in X),none,imputed values carry no information,no
+M30,Missing-value handling,order_approved_at,approval time missing,14,kept missing,column unused,no,none,none,no
+M31,Missing-value handling,order_delivered_carrier_date,carrier time missing,1,kept missing,column unused,no,none,none,no

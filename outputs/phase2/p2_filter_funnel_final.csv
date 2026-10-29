@@ -1,0 +1,8 @@
+step,rows_after,removed,reason,phase
+0. all orders,99441,0,,Phase 1
+1. status == delivered,96478,2963,"not delivered (shipped, canceled, unavailable, ...)",Phase 1
+2. delivery timestamp present,96470,8,lateness and waiting time cannot be computed,Phase 1
+3. estimated date present,96470,0,lateness cannot be computed,Phase 1
+4. at least one review,95824,646,"no review, so no outcome",Phase 1
+5. exactly one review,95299,525,several reviews: ambiguous outcome (D2),Phase 1
+6. review answered on or after purchase,95296,3,review answered before the order was purchased (Phase 2 chronological rule),Phase 2

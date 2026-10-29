@@ -1,0 +1,5 @@
+,size,mean,std,low_score_share
+on time / answered after delivery,88769,4.292,1.148,0.092
+on time / answered before delivery,177,3.938,1.443,0.175
+late / answered after delivery,1903,3.723,1.394,0.194
+late / answered before delivery,4450,1.653,1.19,0.807

@@ -1,0 +1,19 @@
+,passed
+customer states are valid Brazilian codes,True
+seller states are valid Brazilian codes,True
+payment types are the 5 documented values,True
+'not_defined' payment type absent from the sample,True
+only the 2 known categories lack an English name,True
+no duplicate English category names,True
+cat__unknown = orders with an uncategorised item,True
+dominant_category 'unknown' only where an item is uncategorised,True
+seller-state multi-hot matches source,True
+payment-type multi-hot matches source,True
+customer-state one-hot matches source,True
+exactly one customer state per order,True
+category multi-hot row sums = n_categories,True
+seller-state multi-hot row sums = n_seller_states,True
+same_state = every seller in the customer's state,True
+n_sellers matches source,True
+price and freight totals match source,True
+purchase month and weekday one-hot match,True

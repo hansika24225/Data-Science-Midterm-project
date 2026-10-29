@@ -1,0 +1,5 @@
+join,keys,how,cardinality,rows_before,rows_after,left_unmatched,order_id_unique_after
+orders x reviews,order_id,inner,one_to_one,95299,95299,0,True
+orders x customers,customer_id,left,one_to_one,95299,95299,0,True
+orders x item aggregates,order_id,left,one_to_one,95299,95299,0,True
+orders x payment aggregates,order_id,left,one_to_one,95299,95299,1,True

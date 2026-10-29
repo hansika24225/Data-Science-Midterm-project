@@ -1,0 +1,7 @@
+column,category,orders,pct_of_eligible
+review_comment_message,null or empty field,56575,59.37
+review_comment_message,whitespace only,26,0.03
+review_comment_message,non-empty text,38698,40.61
+review_comment_title,null or empty field,84129,88.28
+review_comment_title,whitespace only,2,0.0
+review_comment_title,non-empty text,11168,11.72

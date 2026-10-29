@@ -1,0 +1,14 @@
+,passed
+"sample unchanged (95,296 rows, Phase 2 table untouched)",True
+monthly totals = sample,True
+main-trend months + 2016 months = sample,True
+state totals = sample,True
+category totals = sample,True
+"figure categories all have >= 1,000 orders",True
+review-timing groups sum to sample,True
+delay bands cover every order,True
+wait bands cover every order,True
+after-delivery subset = sample - answered before delivery,True
+text analysis uses only non-blank messages,True
+comment-availability groups sum to sample,True
+every figure file exists,True

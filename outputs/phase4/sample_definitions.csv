@@ -1,0 +1,6 @@
+sample,definition,orders,late,on_time_or_early,orders_removed_vs_primary
+Primary,cleaned Phase 2 primary sample,95296,6353,88943,0
+S1 after delivery,reviews answered after delivery (review_before_delivery == 0),90672,1903,88769,4624
+S2 one order per customer,"one order per customer_unique_id: earliest order_purchase_timestamp, ties by order_id",92583,6204,86379,2713
+S3 no shared reviews,exclude orders whose review_id is shared with another order (review_shared_across_orders == 1),94429,6287,88142,867
+S4 S1+S3+S2,"S1 and S3, then S2 within that subset",87736,1845,85891,7560

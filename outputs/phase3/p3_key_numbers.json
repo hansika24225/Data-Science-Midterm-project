@@ -1,0 +1,17 @@
+{
+  "orders": 95296,
+  "late": 6353,
+  "on_time_or_early": 88943,
+  "mean_score_on_time": 4.291,
+  "mean_score_late": 2.273,
+  "pct_low_on_time": 9.247,
+  "pct_low_late": 62.364,
+  "after_delivery_mean_on_time": 4.292,
+  "after_delivery_mean_late": 3.723,
+  "after_delivery_pct_low_on_time": 9.233,
+  "after_delivery_pct_low_late": 19.39,
+  "late_answered_before_delivery_pct": 70.046,
+  "monthly_corr_late_vs_low_2017_2018": 0.934,
+  "messages_analysed": 38696,
+  "figures": 12
+}

@@ -1,0 +1,38 @@
+feature,group,meaning and construction
+is_late,delivery,1 if delivered on a later calendar day than the estimated date (D3)
+delay_days,delivery,"delivered timestamp minus estimated date, in days; negative = early"
+delay_calendar_days,delivery,"delivery calendar date minus estimated date, whole days; >0 means late"
+wait_days,delivery,"delivered timestamp minus purchase timestamp, in days"
+promised_days,delivery,"estimated date minus purchase timestamp, in days (how long Olist promised)"
+review_score,outcome,customer's 1-5 star rating (raw)
+low_score,outcome,1 if review_score is 1 or 2
+has_comment,outcome/text,1 if the comment text is non-empty after trimming spaces
+comment_len_chars,outcome/text,number of characters in the trimmed comment; 0 if none
+has_title,outcome/text,1 if the comment title is non-empty
+review_lag_days,review timing,"review_answer_timestamp minus order_delivered_customer_date, in days (full timestamps); negative = answered before arrival"
+review_before_delivery,review timing,1 if review_answer_timestamp is earlier than order_delivered_customer_date (D4)
+survey_lag_days,survey timing,"review_creation_date minus delivery calendar date, whole days; when the survey was SENT, not answered"
+survey_sent_before_delivery,survey timing,1 if the survey was created before the delivery calendar day
+review_shared_across_orders,data quality,1 if the same review_id is attached to another order (D5); different from an order having several reviews (D2)
+items_price_total,order,sum of item prices (BRL)
+freight_total,order,sum of freight charges (BRL)
+freight_ratio,order,freight_total / items_price_total
+n_items,order,number of item rows (units) in the order
+n_products,order,number of distinct products
+n_sellers,order,number of distinct sellers
+n_categories,order,number of distinct product categories
+n_seller_states,order,number of distinct seller states
+payment_total,payment,sum of payment values (BRL); missing for orders with no payment record
+n_payment_records,payment,number of payment records (split payments)
+max_installments,payment,largest number of instalments among the order's payments
+pay__<type>,payment,multi-hot: 1 if the order used this payment type
+weight_total_g,product,sum of product weights over items (g); missing if any item lacks weight
+volume_total_cm3,product,sum of length x height x width over items (cm3)
+cat__<category>,product,multi-hot: 1 if the order contains an item of this English category
+dominant_category,product,category with the largest share of item price (EDA label only)
+customer_state,location,"customer's state (27 levels), one-hot in X"
+seller_state__<UF>,location,multi-hot: 1 if any seller of the order is in this state
+same_state,location,1 if every seller is in the customer's state
+purchase_year / _month / _weekday / _hour,time,from the purchase timestamp; month and weekday one-hot in X
+purchase_yearmonth,time,"YYYY-MM, for monthly trends"
+is_weekend,time,1 if purchased on Saturday or Sunday

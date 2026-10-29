@@ -1,0 +1,21 @@
+flag,defined_in,meaning,orders_final_sample,pct_final_sample,orders_audited_sample,handling
+review_before_delivery,Phase 1,review answered before the parcel arrived (D4),4624,4.85,4627,retained; Phase 4 sensitivity
+survey_sent_before_delivery,Phase 1,survey created before the delivery day,4937,5.18,4940,retained; descriptive
+review_shared_across_orders,Phase 1,review record attached to another order (D5),867,0.91,869,retained; Phase 4 sensitivity
+payment_missing,Phase 1,no payment record,1,0.0,1,retained; median in X only
+has_any_text,Phase 2,message or title contains text,40397,42.39,40400,derived feature; alternative to has_comment
+flag_title_only,Phase 2,title but no message,1701,1.78,1702,retained; has_comment = 0
+flag_whitespace_comment,Phase 2,message of spaces only,26,0.03,26,retained; has_comment = 0; text unchanged
+flag_category_unknown,Phase 2,order has an item with no category,1374,1.44,1374,retained; cat__unknown
+flag_dims_missing,Phase 2,weight or size missing for an item,16,0.02,16,"retained; NaN in table, median in X"
+flag_zero_weight_product,Phase 2,order contains a product recorded as 0 g,6,0.01,6,retained as recorded
+flag_payment_mismatch,Phase 2,payment differs from price + freight by > 1 BRL,245,0.26,245,"retained; likely instalment interest, unproven"
+flag_installments_zero,Phase 2,card payment recorded with 0 instalments,2,0.0,2,retained as recorded
+flag_wait_over_60,Phase 2,waiting time over 60 days,290,0.3,290,retained; possible long deliveries
+flag_delay_over_30,Phase 2,more than 30 days late,341,0.36,341,retained
+flag_promised_day_positive_delay,Phase 2,"delay_days > 0 on the promised day, is_late = 0",1269,1.33,1269,correct under D3
+flag_answered_over_60,Phase 2,review answered over 60 days after delivery,305,0.32,305,retained
+flag_review_before_purchase,Phase 2,review answered before the order was purchased,0,0.0,3,"EXCLUDED from the primary sample (step 6)"
+flag_lifecycle_inconsistent,Phase 2,carrier date before purchase or after customer delivery,187,0.2,187,retained; columns unused
+flag_repeat_customer,Phase 2,customer has more than one order in the sample (recomputed for the final sample),5163,5.42,5165,retained; clustering for Phase 4
+flag_sparse_period_2016,Phase 2,"purchased in 2016 (only a few months, thin data)",262,0.27,262,retained; treat with care in time plots

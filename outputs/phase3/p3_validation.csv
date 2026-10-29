@@ -1,0 +1,18 @@
+,passed
+one row per order_id,True
+"rows = Phase 2 summary (95,296)",True
+"late orders = 6,353",True
+"on time or early = 88,943",True
+"3 pre-purchase-review orders excluded (marked in audited table, absent here)",True
+no review answered before purchase,True
+is_late = delivery calendar date > estimated date,True
+delay_calendar_days = whole days between those dates,True
+delay_days = (delivery - estimate) in days,True
+wait_days = (delivery - purchase) in days,True
+promised_days = (estimate - purchase) in days,True
+low_score = score 1 or 2,True
+has_comment = non-blank message,True
+has_any_text = non-blank message or title,True
+review_before_delivery uses the ANSWER timestamp,True
+... and is NOT the survey-creation comparison,True
+survey created before or at the answer (never after),True

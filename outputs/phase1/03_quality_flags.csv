@@ -1,0 +1,14 @@
+,orders
+wait_days <= 0,0
+wait_days > 60,290
+promised_days <= 0,0
+delay over 30 days late,341
+orders with a zero-weight product,6
+payment_total != price + freight (by > 1 BRL),245
+orders with no payment record,1
+comment present but only spaces (counted as no comment),26
+delay_days > 0 but is_late = 0 (promised day),1269
+review answered before delivery (D4),4627
+review answered > 60 days after delivery,305
+survey sent before the delivery day,4940
+review record shared with another order (D5),869

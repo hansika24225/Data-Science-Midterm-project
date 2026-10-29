@@ -1,0 +1,179 @@
+table,column,dtype,rows,missing,missing_pct,treatment,justification
+orders,order_id,str,99441,0,0.0,none needed,no missing values
+orders,customer_id,str,99441,0,0.0,none needed,no missing values
+orders,order_status,str,99441,0,0.0,none needed,no missing values
+orders,order_purchase_timestamp,str,99441,0,0.0,none needed,no missing values
+orders,order_approved_at,str,99441,160,0.16,kept missing,approval time is not used by any feature
+orders,order_delivered_carrier_date,str,99441,1783,1.79,kept missing,carrier hand-over time is not used by any feature
+orders,order_delivered_customer_date,str,99441,2965,2.98,orders excluded (Phase 1 funnel),"without the arrival time, lateness and waiting time cannot be computed; nearly all are not-delivered statuses"
+orders,order_estimated_delivery_date,str,99441,0,0.0,none needed,no missing values
+reviews,review_id,str,99224,0,0.0,none needed,no missing values
+reviews,order_id,str,99224,0,0.0,none needed,no missing values
+reviews,review_score,int64,99224,0,0.0,none needed,no missing values
+reviews,review_comment_title,str,99224,87656,88.34,kept missing; has_title = 0,"an absent title is information, not an error; text left unchanged"
+reviews,review_comment_message,str,99224,58247,58.7,kept missing; has_comment = 0,customers may rate without writing; text left unchanged for Phase 3
+reviews,review_creation_date,str,99224,0,0.0,none needed,no missing values
+reviews,review_answer_timestamp,str,99224,0,0.0,none needed,no missing values
+items,order_id,str,112650,0,0.0,none needed,no missing values
+items,order_item_id,int64,112650,0,0.0,none needed,no missing values
+items,product_id,str,112650,0,0.0,none needed,no missing values
+items,seller_id,str,112650,0,0.0,none needed,no missing values
+items,shipping_limit_date,str,112650,0,0.0,none needed,no missing values
+items,price,float64,112650,0,0.0,none needed,no missing values
+items,freight_value,float64,112650,0,0.0,none needed,no missing values
+payments,order_id,str,103886,0,0.0,none needed,no missing values
+payments,payment_sequential,int64,103886,0,0.0,none needed,no missing values
+payments,payment_type,str,103886,0,0.0,none needed,no missing values
+payments,payment_installments,int64,103886,0,0.0,none needed,no missing values
+payments,payment_value,float64,103886,0,0.0,none needed,no missing values
+customers,customer_id,str,99441,0,0.0,none needed,no missing values
+customers,customer_unique_id,str,99441,0,0.0,none needed,no missing values
+customers,customer_zip_code_prefix,int64,99441,0,0.0,none needed,no missing values
+customers,customer_city,str,99441,0,0.0,none needed,no missing values
+customers,customer_state,str,99441,0,0.0,none needed,no missing values
+products,product_id,str,32951,0,0.0,none needed,no missing values
+products,product_category_name,str,32951,610,1.85,explicit 'unknown' category at order level,no category is invented; cat__unknown and flag_category_unknown mark these orders
+products,product_name_lenght,float64,32951,610,1.85,kept missing,not used by any feature
+products,product_description_lenght,float64,32951,610,1.85,kept missing,not used by any feature
+products,product_photos_qty,float64,32951,610,1.85,kept missing,not used by any feature
+products,product_weight_g,float64,32951,2,0.01,order total left missing,summing with a gap would understate weight; median used only in the encoded matrix
+products,product_length_cm,float64,32951,2,0.01,order volume left missing,same reason as weight
+products,product_height_cm,float64,32951,2,0.01,order volume left missing,same reason as weight
+products,product_width_cm,float64,32951,2,0.01,order volume left missing,same reason as weight
+sellers,seller_id,str,3095,0,0.0,none needed,no missing values
+sellers,seller_zip_code_prefix,int64,3095,0,0.0,none needed,no missing values
+sellers,seller_city,str,3095,0,0.0,none needed,no missing values
+sellers,seller_state,str,3095,0,0.0,none needed,no missing values
+geolocation,geolocation_zip_code_prefix,int64,1000163,0,0.0,none needed,no missing values
+geolocation,geolocation_lat,float64,1000163,0,0.0,none needed,no missing values
+geolocation,geolocation_lng,float64,1000163,0,0.0,none needed,no missing values
+geolocation,geolocation_city,str,1000163,0,0.0,none needed,no missing values
+geolocation,geolocation_state,str,1000163,0,0.0,none needed,no missing values
+translation,product_category_name,str,71,0,0.0,none needed,no missing values
+translation,product_category_name_english,str,71,0,0.0,none needed,no missing values
+analysis_phase1,order_id,str,95299,0,0.0,none needed,no missing values
+analysis_phase1,customer_id,str,95299,0,0.0,none needed,no missing values
+analysis_phase1,customer_unique_id,str,95299,0,0.0,none needed,no missing values
+analysis_phase1,review_id,str,95299,0,0.0,none needed,no missing values
+analysis_phase1,order_status,str,95299,0,0.0,none needed,no missing values
+analysis_phase1,order_purchase_timestamp,datetime64[us],95299,0,0.0,none needed,no missing values
+analysis_phase1,order_approved_at,datetime64[us],95299,14,0.01,kept missing,not used by any feature
+analysis_phase1,order_delivered_carrier_date,datetime64[us],95299,1,0.0,kept missing,not used by any feature
+analysis_phase1,order_delivered_customer_date,datetime64[us],95299,0,0.0,none needed,no missing values
+analysis_phase1,order_estimated_delivery_date,datetime64[us],95299,0,0.0,none needed,no missing values
+analysis_phase1,review_creation_date,datetime64[us],95299,0,0.0,none needed,no missing values
+analysis_phase1,review_answer_timestamp,datetime64[us],95299,0,0.0,none needed,no missing values
+analysis_phase1,customer_city,str,95299,0,0.0,none needed,no missing values
+analysis_phase1,customer_state,str,95299,0,0.0,none needed,no missing values
+analysis_phase1,seller_states,str,95299,0,0.0,none needed,no missing values
+analysis_phase1,dominant_category,str,95299,0,0.0,none needed,no missing values
+analysis_phase1,payment_types,str,95299,1,0.0,kept missing; all pay__ indicators 0 in X,same order as payment_total
+analysis_phase1,purchase_yearmonth,str,95299,0,0.0,none needed,no missing values
+analysis_phase1,purchase_month,int32,95299,0,0.0,none needed,no missing values
+analysis_phase1,purchase_weekday,str,95299,0,0.0,none needed,no missing values
+analysis_phase1,delay_calendar_days,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,payment_missing,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,is_late,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,delay_days,float64,95299,0,0.0,none needed,no missing values
+analysis_phase1,wait_days,float64,95299,0,0.0,none needed,no missing values
+analysis_phase1,promised_days,float64,95299,0,0.0,none needed,no missing values
+analysis_phase1,items_price_total,float64,95299,0,0.0,none needed,no missing values
+analysis_phase1,freight_total,float64,95299,0,0.0,none needed,no missing values
+analysis_phase1,freight_ratio,float64,95299,0,0.0,none needed,no missing values
+analysis_phase1,n_items,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,n_products,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,n_sellers,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,n_categories,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,n_seller_states,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,payment_total,float64,95299,1,0.0,missing in table; median in X only,one order has no payment record in the source
+analysis_phase1,n_payment_records,float64,95299,1,0.0,missing in table; median in X only,same order as payment_total
+analysis_phase1,max_installments,float64,95299,1,0.0,missing in table; median in X only,same order as payment_total
+analysis_phase1,weight_total_g,float64,95299,16,0.02,missing in table; median in X only,an order with an item of unknown weight has unknown total weight
+analysis_phase1,volume_total_cm3,float64,95299,16,0.02,missing in table; median in X only,same reason as weight
+analysis_phase1,same_state,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,purchase_hour,int32,95299,0,0.0,none needed,no missing values
+analysis_phase1,is_weekend,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,purchase_year,int32,95299,0,0.0,none needed,no missing values
+analysis_phase1,review_score,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,low_score,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,has_comment,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,comment_len_chars,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,has_title,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,review_before_delivery,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,review_lag_days,float64,95299,0,0.0,none needed,no missing values
+analysis_phase1,survey_sent_before_delivery,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,survey_lag_days,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,review_shared_across_orders,int64,95299,0,0.0,none needed,no missing values
+analysis_phase1,review_comment_title,str,95299,84129,88.28,kept missing; has_title = 0,text left unchanged
+analysis_phase1,review_comment_message,str,95299,56575,59.37,kept missing; has_comment = 0,text left unchanged for Phase 3
+analysis_final,order_id,str,95296,0,0.0,none needed,no missing values
+analysis_final,customer_id,str,95296,0,0.0,none needed,no missing values
+analysis_final,customer_unique_id,str,95296,0,0.0,none needed,no missing values
+analysis_final,review_id,str,95296,0,0.0,none needed,no missing values
+analysis_final,order_status,str,95296,0,0.0,none needed,no missing values
+analysis_final,order_purchase_timestamp,datetime64[us],95296,0,0.0,none needed,no missing values
+analysis_final,order_approved_at,datetime64[us],95296,14,0.01,kept missing,not used by any feature
+analysis_final,order_delivered_carrier_date,datetime64[us],95296,1,0.0,kept missing,not used by any feature
+analysis_final,order_delivered_customer_date,datetime64[us],95296,0,0.0,none needed,no missing values
+analysis_final,order_estimated_delivery_date,datetime64[us],95296,0,0.0,none needed,no missing values
+analysis_final,review_creation_date,datetime64[us],95296,0,0.0,none needed,no missing values
+analysis_final,review_answer_timestamp,datetime64[us],95296,0,0.0,none needed,no missing values
+analysis_final,customer_city,str,95296,0,0.0,none needed,no missing values
+analysis_final,customer_state,str,95296,0,0.0,none needed,no missing values
+analysis_final,seller_states,str,95296,0,0.0,none needed,no missing values
+analysis_final,dominant_category,str,95296,0,0.0,none needed,no missing values
+analysis_final,payment_types,str,95296,1,0.0,kept missing; all pay__ indicators 0 in X,same order as payment_total
+analysis_final,purchase_yearmonth,str,95296,0,0.0,none needed,no missing values
+analysis_final,purchase_month,int32,95296,0,0.0,none needed,no missing values
+analysis_final,purchase_weekday,str,95296,0,0.0,none needed,no missing values
+analysis_final,delay_calendar_days,int64,95296,0,0.0,none needed,no missing values
+analysis_final,payment_missing,int64,95296,0,0.0,none needed,no missing values
+analysis_final,is_late,int64,95296,0,0.0,none needed,no missing values
+analysis_final,delay_days,float64,95296,0,0.0,none needed,no missing values
+analysis_final,wait_days,float64,95296,0,0.0,none needed,no missing values
+analysis_final,promised_days,float64,95296,0,0.0,none needed,no missing values
+analysis_final,items_price_total,float64,95296,0,0.0,none needed,no missing values
+analysis_final,freight_total,float64,95296,0,0.0,none needed,no missing values
+analysis_final,freight_ratio,float64,95296,0,0.0,none needed,no missing values
+analysis_final,n_items,int64,95296,0,0.0,none needed,no missing values
+analysis_final,n_products,int64,95296,0,0.0,none needed,no missing values
+analysis_final,n_sellers,int64,95296,0,0.0,none needed,no missing values
+analysis_final,n_categories,int64,95296,0,0.0,none needed,no missing values
+analysis_final,n_seller_states,int64,95296,0,0.0,none needed,no missing values
+analysis_final,payment_total,float64,95296,1,0.0,missing in table; median in X only,one order has no payment record in the source
+analysis_final,n_payment_records,float64,95296,1,0.0,missing in table; median in X only,same order as payment_total
+analysis_final,max_installments,float64,95296,1,0.0,missing in table; median in X only,same order as payment_total
+analysis_final,weight_total_g,float64,95296,16,0.02,missing in table; median in X only,an order with an item of unknown weight has unknown total weight
+analysis_final,volume_total_cm3,float64,95296,16,0.02,missing in table; median in X only,same reason as weight
+analysis_final,same_state,int64,95296,0,0.0,none needed,no missing values
+analysis_final,purchase_hour,int32,95296,0,0.0,none needed,no missing values
+analysis_final,is_weekend,int64,95296,0,0.0,none needed,no missing values
+analysis_final,purchase_year,int32,95296,0,0.0,none needed,no missing values
+analysis_final,review_score,int64,95296,0,0.0,none needed,no missing values
+analysis_final,low_score,int64,95296,0,0.0,none needed,no missing values
+analysis_final,has_comment,int64,95296,0,0.0,none needed,no missing values
+analysis_final,comment_len_chars,int64,95296,0,0.0,none needed,no missing values
+analysis_final,has_title,int64,95296,0,0.0,none needed,no missing values
+analysis_final,review_before_delivery,int64,95296,0,0.0,none needed,no missing values
+analysis_final,review_lag_days,float64,95296,0,0.0,none needed,no missing values
+analysis_final,survey_sent_before_delivery,int64,95296,0,0.0,none needed,no missing values
+analysis_final,survey_lag_days,int64,95296,0,0.0,none needed,no missing values
+analysis_final,review_shared_across_orders,int64,95296,0,0.0,none needed,no missing values
+analysis_final,review_comment_title,str,95296,84128,88.28,kept missing; has_title = 0,text left unchanged
+analysis_final,review_comment_message,str,95296,56574,59.37,kept missing; has_comment = 0,text left unchanged for Phase 3
+analysis_final,has_any_text,int64,95296,0,0.0,none needed,no missing values
+analysis_final,flag_title_only,int64,95296,0,0.0,none needed,no missing values
+analysis_final,flag_whitespace_comment,int64,95296,0,0.0,none needed,no missing values
+analysis_final,flag_category_unknown,int64,95296,0,0.0,none needed,no missing values
+analysis_final,flag_dims_missing,int64,95296,0,0.0,none needed,no missing values
+analysis_final,flag_zero_weight_product,int64,95296,0,0.0,none needed,no missing values
+analysis_final,flag_payment_mismatch,int64,95296,0,0.0,none needed,no missing values
+analysis_final,flag_installments_zero,int64,95296,0,0.0,none needed,no missing values
+analysis_final,flag_wait_over_60,int64,95296,0,0.0,none needed,no missing values
+analysis_final,flag_delay_over_30,int64,95296,0,0.0,none needed,no missing values
+analysis_final,flag_promised_day_positive_delay,int64,95296,0,0.0,none needed,no missing values
+analysis_final,flag_answered_over_60,int64,95296,0,0.0,none needed,no missing values
+analysis_final,flag_review_before_purchase,int64,95296,0,0.0,none needed,no missing values
+analysis_final,flag_lifecycle_inconsistent,int64,95296,0,0.0,none needed,no missing values
+analysis_final,flag_repeat_customer,int64,95296,0,0.0,none needed,no missing values
+analysis_final,flag_sparse_period_2016,int64,95296,0,0.0,none needed,no missing values

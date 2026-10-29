@@ -1,0 +1,676 @@
+%=======================================================================
+%  CSE558 Data Science - Midterm Project Report  (course template, Monsoon 2026, IIIT-Delhi)
+%  Project: Late deliveries and customer review scores on Olist
+%  Compile with pdfLaTeX, twice, from the project root (figures are read from outputs/).
+%=======================================================================
+\documentclass[10pt,a4paper,twocolumn]{article}
+
+%========================= EDIT THIS =========================
+\newcommand{\projecttitle}{Impact of Delivery Delays on Customer Review Ratings:
+  An Empirical Analysis of 95,296 Olist Marketplace Orders}
+\newif\ifshowhints
+\showhintsfalse      % \showhintsfalse hides every grey instruction line
+% ---- Team details ----
+\newcommand{\groupname}{Team tiriri}
+\newcommand{\codelink}{\href{https://github.com/hansika24225/Data-Science-Midterm-project}{github.com/hansika24225/Data-Science-Midterm-project} (notebooks 01--04 and README)}
+%=============================================================
+
+%-------------------------------------------- fonts (no need to edit)
+\usepackage{iftex}
+\ifPDFTeX
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \IfFileExists{carlito.sty}%
+    {\usepackage[sfdefault]{carlito}}%              Calibri look
+    {\usepackage[scaled=0.92]{helvet}\renewcommand{\familydefault}{\sfdefault}}%
+  \usepackage{courier}
+\else
+  \usepackage[no-math]{fontspec}
+  \setmainfont{Carlito}[Extension=.ttf, UprightFont=*-Regular, BoldFont=*-Bold,
+    ItalicFont=*-Italic, BoldItalicFont=*-BoldItalic]
+\fi
+
+%----------------------------------------------------------- packages
+\usepackage[margin=18mm,bottom=20mm,columnsep=7mm]{geometry}
+\usepackage{amsmath}
+\usepackage{xcolor}
+\usepackage{graphicx}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{booktabs}
+\usepackage{enumitem}
+\usepackage{titlesec}
+\usepackage{needspace}
+\usepackage[font=small,labelfont=bf]{caption}
+\usepackage[hidelinks]{hyperref}
+\hypersetup{pdftitle={\projecttitle},
+            pdfsubject={CSE558 Data Science, Monsoon 2026: Midterm Project Report}}
+
+%------------------------------------------------------------- layout
+\definecolor{eg}{HTML}{7396C4}         % worked example (light blue)
+\definecolor{hintgrey}{gray}{0.58}     % instructions (light grey)
+
+\titleformat{\section}{\normalfont\large\bfseries}{\thesection.}{0.5em}{}
+\titlespacing*{\section}{0pt}{12pt}{3pt}
+\titleformat{\subsection}{\normalfont\normalsize\bfseries}{\thesubsection}{0.5em}{}
+\titlespacing*{\subsection}{0pt}{10pt}{2pt}
+\newcommand{\sectionbreak}{\needspace{10\baselineskip}}
+\newcommand{\subsectionbreak}{\needspace{10\baselineskip}}
+
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{4pt}
+\setlist{leftmargin=1.2em, itemsep=2pt, topsep=2pt, parsep=0pt}
+\renewcommand{\arraystretch}{1.25}
+\setlength{\tabcolsep}{4pt}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{K}[1]{>{\raggedright\arraybackslash\bfseries\boldmath}p{#1}}  % bold labels
+
+%--------------------------------------------------------- shorthands
+\newcommand{\hint}[1]{\ifshowhints{\footnotesize\itshape\color{hintgrey}#1\par}\fi}
+\newcommand{\eg}[1]{\textcolor{eg}{#1}}
+\newcommand{\egblock}[1]{{\color{eg}#1\par}}
+\newcommand{\field}[2]{\textbf{#1}~#2\par}
+\newcommand{\tpart}[2]{\par\needspace{12\baselineskip}\smallskip\textbf{#1)~#2}\par}
+\newcommand{\minihead}[1]{\par\needspace{8\baselineskip}\smallskip\textbf{#1}\par}
+\newcommand{\code}[1]{\texttt{#1}}
+\newcommand{\figfile}[2]{%
+  \IfFileExists{#1}%
+    {\includegraphics[width=\linewidth,height=#2,keepaspectratio]{#1}}%
+    {\fbox{\parbox[c][#2][c]{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}%
+      {\centering\small\itshape\color{hintgrey}Figure: \detokenize{#1}}}}}
+% Helper macros for p-values and figure directories
+\newcommand{\pe}[1]{$10^{#1}$}
+\newcommand{\Pthree}{outputs/phase3/figures}
+\newcommand{\Pfour}{outputs/phase4/figures}
+\renewcommand{\dbltopfraction}{0.85}\setcounter{dbltopnumber}{2}\renewcommand{\dblfloatpagefraction}{0.8}
+\renewcommand{\topfraction}{0.85}\renewcommand{\textfraction}{0.1}
+
+%=======================================================================
+\begin{document}
+
+\twocolumn[%
+{\small\bfseries CSE558 Data Science\ \ \textbullet\ \ Midterm Project Report\ \ \textbullet\ \ Monsoon 2026\par}
+\vspace{4pt}
+{\LARGE\bfseries\raggedright\projecttitle\par}
+\vspace{6pt}
+\rule{\linewidth}{1pt}
+
+{\small
+\begin{tabularx}{\linewidth}{@{}K{2.4cm} Y@{}}
+\toprule
+Group name & \groupname \\
+Dataset & kaggle.com/datasets/olistbr/brazilian-ecommerce (Brazilian E-Commerce Public Dataset by Olist) \\
+Code & \codelink \\
+\bottomrule
+\end{tabularx}}
+
+\vspace{2pt}
+{\small
+\begin{tabularx}{\linewidth}{@{}L{0.5cm} L{3.4cm} L{2.3cm} L{4.8cm} Y@{}}
+\toprule
+\textbf{\#} & \textbf{Name} & \textbf{Roll no.} & \textbf{Institute email} & \textbf{Contribution} \\
+\midrule
+1 & Divyanshi Gupta & SP26005 & divyanshi26005@iiitd.ac.in & Order-level aggregation, audit, 3M size check (1) \\
+2 & Palak Khatri & SP26006 & palak26006@iiitd.ac.in & Cleaning decisions, before--after (2, 3) \\
+3 & Hansika Singh & 2024225 & hansika24225@iiitd.ac.in & EDA, figures, problem statements (4) \\
+4 & Rishit Sansanwal & 2024468 & rishit24468@iiitd.ac.in & Welch and z-tests, alternative tests, CIs (5) \\
+5 & Aman Pratap Singh & SP26004 & aman26004@iiitd.ac.in & CMH and Spearman tests, sensitivity, limitations (5, 6) \\
+\bottomrule
+\end{tabularx}}
+\vspace{10pt}
+]
+
+%-----------------------------------------------------------------------
+\section{Dataset}
+\field{Source:}{We use the ``Brazilian E-Commerce Public Dataset by Olist'' from Kaggle, which records real,
+anonymised transactions on the Olist marketplace purchased September 2016 to August 2018. The dataset comprises
+nine relational CSV files linked by order, customer, product and seller identifiers. Following order fulfillment,
+buyers receive a satisfaction survey requesting a 1--5 star rating and optional written feedback. Our unit of
+analysis is a single delivered order with exactly one review, giving a final primary sample of
+\textbf{95,296 orders (6,353 late and 88,943 on time or early)}.}
+
+\field{Raw structure and challenges:}{Order information is distributed across nine tables (orders 99,441\,$\times$\,8,
+reviews 99,224\,$\times$\,7, items 112,650\,$\times$\,7, payments 103,886\,$\times$\,5, customers 99,441\,$\times$\,5,
+products 32,951\,$\times$\,9, sellers 3,095\,$\times$\,4, translation 71\,$\times$\,2, and geolocation
+1,000,163\,$\times$\,5, which is not required for order-level analysis). A single order can include multiple line
+items, sellers and payment instalments. Furthermore, promised delivery dates are stored without time-of-day
+timestamps, and customer comments consist of unstructured Portuguese text.}
+
+{\small
+\begin{tabularx}{\linewidth}{@{}L{3.0cm} Y Y@{}}
+\toprule
+ & \textbf{Joined table} & \textbf{After encoding} \\
+\midrule
+Instances (rows) & 95,296 & 95,296 \\
+Attributes (columns) & 71 & 167 \\
+Instances $\times$ attributes & 6,766,016 & 15,914,432 \\
+\bottomrule
+\end{tabularx}}
+
+\field{Size check:}{$95{,}296\times167=15{,}914{,}432\ge3{,}000{,}000$, satisfying the course dimensionality
+requirement. The 167 encoded columns combine 21 numeric or binary features with one-hot indicators for customer
+state (27), purchase month (12) and purchase weekday (7), alongside multi-hot indicators for product category (74),
+seller state (22) and payment method (4), while \code{order\_id} serves as the row index.}
+
+\minihead{Key features}
+{\footnotesize
+\begin{tabularx}{\linewidth}{@{}L{3.5cm} L{1.25cm} Y@{}}
+\toprule
+\textbf{Feature} & \textbf{Type} & \textbf{Real-world meaning} \\
+\midrule
+\code{review\_score} & ordinal & Customer satisfaction rating (1--5 stars); primary response \\
+\code{low\_score} & binary & Indicator equal to 1 if rating is 1 or 2 stars \\
+\code{is\_late} & binary & Delivered on a later calendar day than promised; primary exposure \\
+\code{delay\_calendar\_days} & discrete & Whole calendar days between promised and actual delivery date \\
+\code{wait\_days} & continuous & Total waiting time from purchase to customer delivery (days) \\
+\code{review\_before\_delivery} & binary & Indicator equal to 1 if review was answered before parcel arrival \\
+\code{has\_comment} & binary & Indicator equal to 1 if review contains a non-blank text message \\
+\code{customer\_state} & nominal & Buyer's Brazilian federative state (27 levels) \\
+\code{freight\_ratio} & continuous & Total shipping cost divided by total item merchandise price \\
+\bottomrule
+\end{tabularx}}
+
+%-----------------------------------------------------------------------
+\begingroup\renewcommand{\sectionbreak}{}% the table below fills the rest of the column
+\section{Data preparation}
+\endgroup
+{\footnotesize
+\begin{tabularx}{\linewidth}{@{}L{2.0cm} L{2.4cm} Y@{}}
+\toprule
+\textbf{Issue found} & \textbf{Action taken} & \textbf{Rationale over alternatives} \\
+\midrule
+Orders not delivered or missing delivery date (2,971)
+ & Excluded from sample
+ & Actual waiting time and delivery lateness are undefined; imputing arrival dates would fabricate our primary exposure. \\
+Orders lacking a review record (646)
+ & Excluded from sample
+ & The response variable is missing, leaving no outcome to evaluate. \\
+Orders with multiple reviews (525 orders)
+ & Excluded in primary sample
+ & Multiple ratings create outcome ambiguity; retaining the latest review instead yields 95,824 orders with identical mean scores. \\
+\bottomrule
+\end{tabularx}}
+
+{\footnotesize
+\begin{tabularx}{\linewidth}{@{}L{2.0cm} L{2.4cm} Y@{}}
+\toprule
+\textbf{Issue found} & \textbf{Action taken} & \textbf{Rationale over alternatives} \\
+\midrule
+Multiple item and payment rows per order
+ & Aggregated to order grain prior to joining; verified join cardinalities
+ & Naive one-to-many joins duplicate multi-item orders and violate sample independence. \\
+Promised date stored at midnight
+ & Defined lateness by \emph{calendar day} rather than raw timestamp
+ & Direct timestamp subtraction misclassifies 1,269 orders delivered later during the promised calendar day as late. \\
+Survey creation vs.\ answer timestamp
+ & Used answer timestamp (713 orders reclassified)
+ & Only the submission timestamp reflects whether the buyer had received the parcel when rating. \\
+Reviews answered prior to purchase (3)
+ & Excluded from sample
+ & Chronologically impossible timestamps where the order had not yet been placed. \\
+\bottomrule
+\end{tabularx}}
+
+{\footnotesize
+\begin{tabularx}{\linewidth}{@{}L{2.0cm} L{2.4cm} Y@{}}
+\toprule
+\textbf{Issue found} & \textbf{Action taken} & \textbf{Rationale over alternatives} \\
+\midrule
+Unprovided comment (59.4\%) and title (88.3\%)
+ & Left as missing; created \code{has\_comment} and \code{has\_any\_text} indicators
+ & Written feedback is optional in the survey, so imputing synthetic text is inappropriate. \\
+Missing weight/size (16) and payment (1)
+ & Preserved as \code{NaN} in main table; median-imputed only in encoded matrix
+ & Our statistical tests do not depend on these columns, avoiding unnecessary row deletion. \\
+Extreme durations: 290 waits $>$60 days, 341 delays $>$30 days
+ & Retained with quality flags; parametric tests complemented by rank-based checks
+ & These are genuine deliveries, not recording errors; waiting time ($\mu=12.51, \sigma=9.46$ days) is long-tailed yet well within the Markov ($P(X\ge30)=0.046\le0.417$) and Chebyshev ($P(|X-\mu|\ge2\sigma)=0.040\le0.250$) bounds. \\
+Categorical attributes
+ & One-hot (state, month, weekday) and multi-hot (category, seller state, payment)
+ & Multi-item orders can span multiple categories, sellers and payment methods; $\sim$4,100 cities are too sparse to one-hot encode. \\
+Duplicate and clustered records
+ & No exact duplicates in the 8 active tables; flagged repeat buyers (5,163) and shared review IDs (867)
+ & Repeat purchases represent real transactions whose clustering impact is evaluated via sensitivity subsets in Section 5. \\
+\bottomrule
+\end{tabularx}}
+
+%-----------------------------------------------------------------------
+\section{What changed after preparation}
+{\footnotesize
+\begin{tabularx}{\linewidth}{@{}L{2.9cm} L{1.6cm} Y@{}}
+\toprule
+\textbf{Measure} & \textbf{Before} & \textbf{After} \\
+\midrule
+Orders (rows) & 99,441 & 95,296 (one per order) \\
+Late / on time or early & -- & 6,353 / 88,943 \\
+Orders with several reviews & 525 & 0 \\
+Impossible reviews (before purchase) & 3 & 0 \\
+Orders misclassified by review timing & 713 & 0 \\
+Columns of the analysis table & 55 & 71 (16 quality flags added) \\
+Missing cells in the original 55 columns & 140,755 & 140,753 (kept missing) \\
+Encoded matrix & -- & 95,296 $\times$ 167, no missing value \\
+Original values changed & -- & 0 \\
+\bottomrule
+\end{tabularx}}
+
+Our filtering funnel progressed from 99,441 raw orders $\to$ 96,478 delivered $\to$ 96,470 with a valid delivery
+timestamp $\to$ 95,824 with at least one review $\to$ 95,299 with a single review $\to$ 95,296 after removing 3
+pre-purchase review timestamps. Pre-aggregating line items and payments guaranteed unique \code{order\_id} records,
+while using the survey answer timestamp corrected the timing classification of 713 orders—a critical step given that
+70.0\% of late orders (compared to just 0.2\% of on-time orders) were reviewed prior to delivery.
+
+%-----------------------------------------------------------------------
+\section{Basic questions and problem statement}
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.86\textwidth]{\Pthree/F01_score_distribution.png}
+  \caption{\textbf{Late orders are heavily concentrated at 1-star ratings.} Distribution of review scores across all
+  95,296 orders (Panel A) and stratified by delivery timeliness (Panel B: 6,353 late vs.\ 88,943 on time). Overall,
+  59.2\% of orders receive 5 stars, whereas 62.4\% of late orders receive 1--2 stars compared with 9.2\% of on-time orders.}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.86\textwidth]{\Pthree/F09_review_timing_groups.png}
+  \caption{\textbf{The rating penalty among late orders is driven primarily by reviews submitted before arrival.} Late
+  orders reviewed before delivery ($n=4{,}450$) average 1.65 stars (80.7\% low scores); late orders reviewed after
+  delivery ($n=1{,}903$) average 3.72 stars (19.4\% low), compared with 4.29 stars (9.2\% low) for on-time orders
+  reviewed after delivery ($n=88{,}769$).}
+\end{figure*}
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.9\textwidth]{\Pthree/F08_low_score_by_wait_band.png}
+  \caption{\textbf{Within identical waiting-time strata, late orders receive more low ratings, though the gap narrows
+  substantially among post-delivery reviews.} Proportion of 1--2 star ratings across weekly waiting-time bands with
+  95\% Wilson confidence intervals (strata with $<$30 orders omitted). Late and on-time distributions overlap primarily
+  between 8 and 42 days.}
+\end{figure*}
+
+\minihead{Basic exploratory questions}
+\begin{enumerate}[label=\arabic*.]
+  \item \emph{How are customer ratings distributed overall?} Ratings are strongly left-skewed, with 59.2\% five-star
+  and 9.7\% one-star reviews (Figure 1A).
+  \item \emph{Do late deliveries receive lower ratings?} Yes: 62.4\% of late orders receive 1--2 stars compared with
+  9.2\% of on-time orders (Figure 1B).
+  \item \emph{When do buyers complete the review survey?} Overall, 70.0\% of late orders are reviewed before the
+  package arrives (Figure 2).
+  \item \emph{What do buyers discuss in written comments?} The phrase ``n\~ao recebi'' (``I did not receive'') appears
+  in 24.4\% of late-order comments versus 1.9\% of on-time comments, and late orders include written messages
+  58.9\% of the time compared to 39.3\% for on-time orders.
+\end{enumerate}
+
+\minihead{Novel problem statements}
+\noindent\fbox{\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+\textbf{P1 (primary).} Conditioning on comparable actual waiting durations, are late deliveries still associated
+with a higher incidence of 1--2 star ratings? (Evaluated in Test 3)
+
+\smallskip
+\textbf{P2.} Across the full marketplace sample, do late orders exhibit lower mean ratings, a higher proportion of
+1--2 star reviews, and higher comment submission rates than on-time orders? (Evaluated in Tests 1, 2, and 5)
+
+\smallskip
+\textbf{P3.} Restricting to late orders, does greater delay severity correlate with lower review scores? (Evaluated in Test 4)
+\end{minipage}}
+
+\field{Why these problem statements are novel:}{Simple bivariate comparisons conflate \emph{missing the promised
+delivery date} with \emph{longer total transit times}, since late orders take roughly three times longer to arrive
+(median 31.1 vs.\ 9.8 days). Problem statement P1 disentangles expectation breach from elapsed duration by stratifying
+across derived waiting-time bands, while our sensitivity framework re-evaluates every hypothesis on post-arrival
+reviews to separate dissatisfaction with late arrival from frustration expressed while still waiting.}
+
+%-----------------------------------------------------------------------
+\section{Statistical inferences}
+\field{Analytical samples:}{All 95,296 orders are evaluated in Tests 1, 2, and 5; Test 3 analyses the 68,080 orders
+(4,988 late) falling within waiting-time bands containing at least 100 observations per group; Test 4 examines the
+6,353 late orders.}
+
+\field{Pre-specified testing protocol:}{We conduct five two-sided hypothesis tests while controlling the family-wise
+error rate at $\alpha=0.05$ via the Holm--Bonferroni procedure. All group contrasts are defined as late minus on time.
+Minimum practically meaningful effect thresholds were established following exploratory analysis (\code{analysis\_plan.json}),
+and an observed effect is deemed practically significant when its entire 95\% confidence interval exceeds the threshold.}
+
+%------------------------------------------------------------ Test 1
+\subsection*{Test 1 (P2): Do late orders receive a lower mean review score?}
+\tpart{a}{Hypotheses and pre-test specification}
+{\small
+\begin{tabularx}{\linewidth}{@{}K{3.4cm} Y@{}}
+\toprule
+$H_0$ & $\mu_{\text{late}}-\mu_{\text{on}}=0$ \\
+$H_1$ & $\mu_{\text{late}}-\mu_{\text{on}}\neq0$ \\
+Significance level & $\alpha=0.05$ (family-wise, Holm-adjusted) \\
+Sidedness & Two-sided \\
+Primary test & Two-sample Welch t-test \\
+Smallest practical difference & 0.5 star \\
+\bottomrule
+\end{tabularx}}
+
+Here $\mu$ denotes the population mean review score. A threshold of 0.5 stars represents half a rating unit on the
+five-point scale, which is sufficient to visibly shift a product's displayed star average.
+
+\tpart{b}{Alternative tests considered}
+Comparing a numerical 1--5 response across two independent groups with unequal, unknown variances motivates Welch's
+two-sample t-test. With sample sizes of 6,353 and 88,943, the sampling distribution of the mean is well-approximated
+by a normal distribution via the Central Limit Theorem despite discrete skewness.
+{\footnotesize
+\begin{tabularx}{\linewidth}{@{}L{2.4cm} Y@{}}
+\toprule
+\textbf{Alternative considered} & \textbf{Reason for not selecting as primary} \\
+\midrule
+Two-sample z-test & Assumes known population standard deviations, whereas variances must be estimated from the sample. \\
+Pooled (Student) t-test & Assumes homoscedasticity, which is rejected because the late group's variance is 1.88 times larger (Brown--Forsythe median Levene $F_{\text{BF}}=1{,}350.88, p=1.1\times10^{-293}$); running it yields $t=-131.58$ ($\text{df}=95{,}294$), same decision. \\
+Mann--Whitney U test & Suitable for ordinal ratings and executed as a robustness check: $z=-96.08$, $p=\,$\pe{-2007}, where a random late order outscores a random on-time order 18.1\% of the time (95\% CI 17.5--18.7\%). Because it tests stochastic dominance rather than mean difference, it serves as a secondary check. \\
+Paired t-test & Inapplicable because orders belong to two independent groups with no natural pairing. \\
+\bottomrule
+\end{tabularx}}
+
+\tpart{c}{Results and interpretation}
+{\small
+\begin{tabularx}{\linewidth}{@{}K{3.4cm} Y@{}}
+\toprule
+Point estimate & $-2.02$ stars (2.27 late vs.\ 4.29 on time) \\
+95\% confidence interval & $-2.06$ to $-1.98$ stars \\
+Standardised effect size & Hedges' $g=-1.71$ \\
+Test statistic (d.f.) & $t=-100.41$ (6,844) \\
+p-value (raw / Holm) & \pe{-1347.7} / \pe{-1347.1} \\
+Statistical decision & reject $H_0$ \\
+\bottomrule
+\end{tabularx}}
+
+Late deliveries average more than two stars lower than on-time deliveries, and the entire 95\% confidence interval lies
+roughly fourfold beyond the 0.5-star practical threshold. When restricted to reviews submitted after delivery, the mean
+difference narrows to $-0.57$ ($-0.63$ to $-0.51$), which still exceeds the 0.5-star benchmark.
+
+%------------------------------------------------------------ Test 2
+\subsection*{Test 2 (P2): Do late orders have a higher proportion of 1--2 star ratings?}
+\tpart{a}{Hypotheses and pre-test specification}
+{\small
+\begin{tabularx}{\linewidth}{@{}K{3.4cm} Y@{}}
+\toprule
+$H_0$ & $p_{\text{late}}-p_{\text{on}}=0$ \\
+$H_1$ & $p_{\text{late}}-p_{\text{on}}\neq0$ \\
+Significance level & $\alpha=0.05$ (family-wise, Holm-adjusted) \\
+Sidedness & Two-sided \\
+Primary test & Two-proportion z-test \\
+Smallest practical difference & 5 percentage points \\
+\bottomrule
+\end{tabularx}}
+
+Here $p$ denotes the proportion of orders receiving a 1--2 star rating. A 5 percentage point shift represents more than
+one-third of the marketplace's baseline low-score rate of 12.8\%.
+
+\tpart{b}{Alternative tests considered}
+For a binary outcome across two independent samples where all expected contingency cell counts exceed 800, the normal
+approximation of the two-proportion z-test is highly accurate and directly pairs with a signed Newcombe confidence interval.
+{\footnotesize
+\begin{tabularx}{\linewidth}{@{}L{2.4cm} Y@{}}
+\toprule
+\textbf{Alternative considered} & \textbf{Reason for not selecting as primary} \\
+\midrule
+Pearson $\chi^2$ test & Algebraically equivalent in two-sided form ($\chi^2=14{,}999.7=z^2$), but yields an unsigned statistic without a direct risk-difference interval. \\
+$\chi^2$ with Yates' correction & Intended for small sample sizes; yields $\chi^2=14,995.0$, same decision. \\
+Fisher's exact test & Computationally tailored for sparse tables; yields the same decision ($p<10^{-300}$, sample odds ratio 16.26). \\
+\bottomrule
+\end{tabularx}}
+
+\tpart{c}{Results and interpretation}
+{\small
+\begin{tabularx}{\linewidth}{@{}K{3.4cm} Y@{}}
+\toprule
+Point estimate & $+53.1$ pp (62.4\% late vs.\ 9.2\% on time) \\
+95\% confidence interval & 51.9 to 54.3 pp \\
+Relative effect size & Risk ratio 6.74 (6.56 to 6.94) \\
+Test statistic & $z=122.47$ \\
+p-value (raw / Holm) & \pe{-3259.3} / \pe{-3258.6} \\
+Statistical decision & reject $H_0$ \\
+\bottomrule
+\end{tabularx}}
+
+Approximately 62 out of every 100 late orders receive 1--2 stars compared with only 9 out of 100 on-time orders, far
+surpassing the 5 percentage point practical threshold. Among post-delivery reviews, the difference drops to $+10.2$ pp
+(8.4 to 12.0; risk ratio 2.10), remaining practically meaningful.
+
+%------------------------------------------------------------ Test 3
+\subsection*{Test 3 (P1, primary): Does the low-score association persist across comparable waiting times?}
+\tpart{a}{Hypotheses and pre-test specification}
+{\small
+\begin{tabularx}{\linewidth}{@{}K{3.4cm} Y@{}}
+\toprule
+$H_0$ & Common odds ratio $=1$ across waiting-time strata \\
+$H_1$ & Common odds ratio $\neq1$ \\
+Significance level & $\alpha=0.05$ (family-wise, Holm-adjusted) \\
+Sidedness & Two-sided \\
+Primary test & Cochran--Mantel--Haenszel (CMH) test \\
+Smallest practical difference & Common odds ratio 1.5 \\
+\bottomrule
+\end{tabularx}}
+
+The stratum-specific odds ratio compares the odds of a 1--2 star rating between late and on-time deliveries \emph{within
+the same weekly waiting-time band}. Following our pre-specified eligibility rule requiring at least 100 late and 100
+on-time orders per stratum, the extreme bands of 0--7 days (58 late), 43--60 days (79 on time), and 60+ days (3 on time)
+are excluded, leaving 68,080 orders across the 8--42 day overlap region (with 27,216 non-overlapping orders excluded).
+
+\tpart{b}{Alternative tests considered}
+The CMH procedure tests conditional independence across $2\times2\times K$ strata non-parametrically and provides a
+pooled Mantel--Haenszel odds ratio; all expected cell counts within the four eligible strata are at least 28.
+{\footnotesize
+\begin{tabularx}{\linewidth}{@{}L{2.4cm} Y@{}}
+\toprule
+\textbf{Alternative considered} & \textbf{Reason for not selecting as primary} \\
+\midrule
+Unstratified two-proportion z-test & Addresses P2 rather than P1 by confounding expectation breach with total waiting duration (crude odds ratio 12.86). \\
+Logistic regression with stratum indicators & Imposes parametric logit linearity and relies on Wald asymptotics; yields a similar adjusted odds ratio of 6.81 (6.29 to 7.38), same decision. \\
+Continuity-corrected CMH & Continuity adjustment is only needed for sparse strata; yields $\chi^2=2468.77$, same decision. \\
+\bottomrule
+\end{tabularx}}
+
+\tpart{c}{Results and interpretation}
+{\small
+\begin{tabularx}{\linewidth}{@{}K{3.4cm} Y@{}}
+\toprule
+Point estimate & Common odds ratio 7.03 \\
+95\% confidence interval & 6.48 to 7.63 \\
+Test statistic (d.f.) & $\chi^2=2470.98$ (1) \\
+p-value (raw / Holm) & \pe{-538.4} / \pe{-537.9} \\
+Statistical decision & reject $H_0$ \\
+Post-delivery subset (S1) & OR 1.41 (1.24 to 1.60), $p=2\times10^{-7}$ \\
+\bottomrule
+\end{tabularx}}
+
+{\footnotesize
+\begin{tabularx}{\linewidth}{@{}L{1.3cm} L{1.7cm} Y L{1.9cm}@{}}
+\toprule
+\textbf{Band (days)} & \textbf{Late / on time} & \textbf{1--2 stars, late vs.\ on time} & \textbf{Odds ratio (95\% CI)} \\
+\midrule
+8--14 & 313 / 39,468 & 32.6\% vs.\ 8.8\% & 5.04 (3.97--6.40) \\
+15--21 & 526 / 16,927 & 43.2\% vs.\ 10.7\% & 6.36 (5.32--7.61) \\
+22--28 & 1,490 / 5,295 & 50.3\% vs.\ 14.2\% & 6.10 (5.37--6.93) \\
+29--42 & 2,659 / 1,402 & 69.6\% vs.\ 19.4\% & 9.50 (8.13--11.10) \\
+\bottomrule
+\end{tabularx}}
+
+Conditioning on waiting duration reduces the crude odds ratio (12.86) by nearly half, suggesting that elapsed wait time
+accounts for part of the raw association, yet late orders still face a sevenfold increase in the odds of a low rating—well above our
+1.5 threshold. Although Breslow--Day--Tarone heterogeneity is statistically detectable ($p\approx5\times10^{-6}$), the
+ratio of maximum to minimum stratum ORs remains below 2, supporting a pooled summary. To address residual within-band
+median wait differences of 1.0--3.1 days, repeating CMH with finer half-week strata yields a consistent OR of 6.55
+(6.02 to 7.12). Crucially, restricting to post-delivery reviews reduces the pooled odds ratio to \textbf{1.41}, falling
+below the 1.5 practical threshold and showing that the bulk of the primary effect stems from buyers rating while
+still awaiting overdue packages.
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.78\textwidth]{\Pfour/P4_F2_stratified_odds_ratios.png}
+  \caption{\textbf{Test 3: Late deliveries exhibit substantially higher low-score odds within every waiting-time band,
+  whereas the post-delivery effect is modest.} Stratum-specific odds ratios with 95\% CIs (log scale) and pooled
+  Mantel--Haenszel estimates (diamonds) for all eligible orders (black: 68,080 total; 4,988 late) versus reviews
+  submitted after delivery (violet: 64,737 total; 1,811 late), relative to the 1.5 practical threshold.}
+\end{figure*}
+
+%------------------------------------------------------------ Test 4
+\subsection*{Test 4 (P3): Among late orders, does longer delay duration correlate with lower ratings?}
+\tpart{a}{Hypotheses and pre-test specification}
+{\small
+\begin{tabularx}{\linewidth}{@{}K{3.4cm} Y@{}}
+\toprule
+$H_0$ & $\rho_S=0$ between calendar days late and review score \\
+$H_1$ & $\rho_S\neq0$ \\
+Significance level & $\alpha=0.05$ (family-wise, Holm-adjusted) \\
+Sidedness & Two-sided \\
+Primary test & Spearman rank correlation \\
+Smallest practical difference & $|\rho_S|=0.10$ \\
+\bottomrule
+\end{tabularx}}
+
+Delay severity is measured via \code{delay\_calendar\_days} ($\ge1$ across all late deliveries), and $|\rho_S|=0.10$
+corresponds to the standard benchmark for a non-trivial rank correlation.
+
+\tpart{b}{Alternative tests considered}
+Because delay durations are heavily right-skewed and star ratings are ordinal, Spearman's rank correlation captures
+monotonic association without requiring bivariate normality; its 95\% CI is computed via BCa bootstrap (5,000 resamples,
+seed 558).
+{\footnotesize
+\begin{tabularx}{\linewidth}{@{}L{2.4cm} Y@{}}
+\toprule
+\textbf{Alternative considered} & \textbf{Reason for not selecting as primary} \\
+\midrule
+Pearson linear correlation & Assumes interval linearity and is sensitive to extreme delays reaching 188 days, attenuating the estimate to $r=-0.15$ ($-0.17$ to $-0.12$). \\
+Kendall's $\tau_b$ & A valid concordance alternative that yields $\tau_b=-0.31$ ($p=5.8\times10^{-226}$, same decision), but operates on a compressed numerical scale relative to $\rho_S$. \\
+\bottomrule
+\end{tabularx}}
+
+\tpart{c}{Results and interpretation}
+{\small
+\begin{tabularx}{\linewidth}{@{}K{3.4cm} Y@{}}
+\toprule
+Point estimate & $\rho_S=-0.40$ ($n=6{,}353$ late orders) \\
+95\% confidence interval & $-0.42$ to $-0.38$ \\
+Test statistic (d.f.) & $t=-35.04$ (6,351) \\
+p-value (raw / Holm) & $5.1\times10^{-246}$ / $1.0\times10^{-245}$ \\
+Statistical decision & reject $H_0$ \\
+Post-delivery subset (S1) & $-0.03$ ($-0.08$ to $0.01$), $p=0.13$ \\
+\bottomrule
+\end{tabularx}}
+
+Across all late orders, delay length exhibits a moderate negative rank correlation with rating that clearly exceeds the
+0.10 benchmark. However, Figure 5 demonstrates that this downward slope is driven by pre-arrival reviews: among
+the $n=1{,}903$ late orders reviewed after delivery, delay duration shows no meaningful association with rating ($\rho_S=-0.03$),
+with its entire 95\% CI ($[-0.08, 0.01]$) contained strictly inside the $[-0.10, +0.10]$ practical equivalence zone.
+
+\begin{figure*}[t]
+  \centering
+  \includegraphics[width=0.74\textwidth]{\Pfour/P4_F3_delay_vs_score.png}
+  \caption{\textbf{Test 4: Review scores decline with additional days of delay only among surveys answered prior to
+  delivery.} Mean review score across calendar-day delay bins with 95\% CIs (bins with $<$30 orders omitted), contrasting
+  all late orders ($\rho_S=-0.40, n=6{,}353$) with late orders reviewed after arrival ($\rho_S=-0.03, n=1{,}903$).}
+\end{figure*}
+
+%------------------------------------------------------------ Test 5
+\subsection*{Test 5 (P2): Are late orders more likely to include a written comment?}
+\tpart{a}{Hypotheses and pre-test specification}
+{\small
+\begin{tabularx}{\linewidth}{@{}K{3.4cm} Y@{}}
+\toprule
+$H_0$ & $c_{\text{late}}-c_{\text{on}}=0$ \\
+$H_1$ & $c_{\text{late}}-c_{\text{on}}\neq0$ \\
+Significance level & $\alpha=0.05$ (family-wise, Holm-adjusted) \\
+Sidedness & Two-sided \\
+Primary test & Two-proportion z-test \\
+Smallest practical difference & 5 percentage points \\
+\bottomrule
+\end{tabularx}}
+
+Here $c$ denotes the proportion of orders containing a non-blank comment message (\code{has\_comment}), capturing active
+customer feedback engagement.
+
+\tpart{b}{Alternative tests considered}
+As in Test 2, we compare a binary indicator across two large independent samples where the minimum expected cell count is 2,580.
+{\footnotesize
+\begin{tabularx}{\linewidth}{@{}L{2.4cm} Y@{}}
+\toprule
+\textbf{Alternative considered} & \textbf{Reason for not selecting as primary} \\
+\midrule
+$\chi^2$ with Yates' correction & Unnecessary for large expected counts; yields $\chi^2=947.1$, $p=5.6\times10^{-208}$, same decision. \\
+Fisher's exact test & Designed for small samples; yields odds ratio 2.22, $p=1.4\times10^{-203}$, same decision. \\
+\code{has\_any\_text} (message or title) & Evaluates a broader outcome definition; as a robustness check it yields $+19.0$ pp (17.7 to 20.2). \\
+\bottomrule
+\end{tabularx}}
+
+\tpart{c}{Results and interpretation}
+{\small
+\begin{tabularx}{\linewidth}{@{}K{3.4cm} Y@{}}
+\toprule
+Point estimate & $+19.6$ pp (58.9\% late vs.\ 39.3\% on time) \\
+95\% confidence interval & 18.4 to 20.9 pp \\
+Test statistic & $z=30.79$ \\
+p-value (raw / Holm) & $3.7\times10^{-208}$ / $3.7\times10^{-208}$ \\
+Statistical decision & reject $H_0$ \\
+Post-delivery subset (S1) & $+3.8$ pp (1.6 to 6.1) \\
+\bottomrule
+\end{tabularx}}
+
+While the overall $+19.6$ pp increase in comment propensity is substantial, restricting to post-delivery reviews reduces
+the difference to $+3.8$ pp (below our 5 pp threshold), indicating that heightened comment activity mainly comes from
+buyers who had not yet received their packages.
+
+%------------------------------------------------------------ Holm and sensitivity
+\subsection*{Multiple testing control and sensitivity analysis}
+\textbf{Holm--Bonferroni procedure.} Running five tests at $\alpha=0.05$ without adjustment can raise the family-wise
+Type I error rate to as much as 22.6\% (if the tests were independent). Applying Holm's step-down adjustment (multiplying ordered p-values by $5, 4, 3, 2, 1$)
+strictly bounds the family-wise error rate at 5\%, with all five null hypotheses rejected. Where test statistics produce
+p-values below IEEE-754 double precision ($10^{-300}$), exact magnitudes are computed in $\log_{10}p$ space rather than
+reported as zero.
+
+\textbf{Sensitivity subsets.} Pre-specified robustness checks:
+{\footnotesize
+\begin{tabularx}{\linewidth}{@{}L{1.75cm} Y Y Y Y Y@{}}
+\toprule
+\textbf{Sample} & \textbf{T1 stars} & \textbf{T2 pp} & \textbf{T3 OR} & \textbf{T4 $\rho_S$} & \textbf{T5 pp} \\
+\midrule
+Primary & $-$2.02 & 53.1 & 7.03 & $-$0.40 & 19.6 \\
+S1 after delivery & $-$0.57 & 10.2 & 1.41 & $-$0.03 & 3.8 \\
+S2 one per customer & $-$2.02 & 53.3 & 7.04 & $-$0.40 & 19.7 \\
+S3 no shared reviews & $-$2.02 & 53.2 & 7.11 & $-$0.41 & 19.6 \\
+S4 all three & $-$0.57 & 10.0 & 1.38 & $-$0.04 & 3.5 \\
+\bottomrule
+\end{tabularx}}
+
+Subsample S1 retains the 90,672 orders reviewed after delivery (1,903 late); S2 retains only the first order per unique
+buyer across 92,583 customers; S3 removes 867 orders sharing a review ID; and S4 combines all three restrictions
+(87,736 orders; 1,845 late). Eliminating repeat buyers (S2) or shared review IDs (S3) leaves all estimates virtually
+unchanged, whereas conditioning on post-delivery reviews (S1, S4) substantially attenuates every effect size (see
+forest plot P4\_F1 in \code{outputs/phase4/figures}). Using continuous timestamp delays in Test 4 similarly yields $\rho_S=-0.405$.
+
+\minihead{Summary conclusion}
+\noindent\fbox{\begin{minipage}{\dimexpr\linewidth-2\fboxsep-2\fboxrule\relax}
+Late delivery is \textbf{strongly associated} with lower customer ratings ($-2.02$ stars and a 6.74-fold higher risk of
+1--2 star reviews), and this relationship \textbf{persists across comparable waiting times} (common OR = 7.03 across
+8--42 days). However, the penalty is \textbf{substantially smaller among reviews submitted after parcel arrival} ($-0.57$
+stars; common OR = 1.41, below our 1.5 practical threshold), where \textbf{additional days of delay no longer correlate}
+with rating ($\rho_S=-0.03$). Thus, customer dissatisfaction is heavily concentrated among buyers prompted to rate while
+still awaiting overdue orders.
+\end{minipage}}
+
+%-----------------------------------------------------------------------
+\section{Limitations}
+\begin{itemize}
+  \item \textbf{Observational association vs.\ causality.} Delivery timeliness is not randomly assigned. Late and
+  on-time orders differ systematically across buyer states (where state-level late rates range from 2.8\% to 20.8\%),
+  merchant profiles, product categories, and seasonal volume spikes; Test 3 controls only for total waiting time.
+  \item \textbf{Survey timing selection.} Overall, 70.0\% of late orders were rated prior to physical delivery. These
+  responses capture real frustration during an overdue wait rather than post-receipt product evaluation, and buyers who
+  wait until delivery to respond may differ systematically.
+  \item \textbf{Partial waiting-time overlap.} Late and on-time distributions overlap sufficiently only within the
+  8--42 day window, excluding 27,216 extreme orders from Test 3, and mild within-stratum wait differences remain.
+  \item \textbf{Non-independence of observations.} Repeat purchases (5,163 orders), shared review IDs (867 orders),
+  and heavy seller concentration (Gini $=0.782$, top 5\% of 2,963 sellers fulfilling 52.9\% of volume) introduce
+  clustering. Subsets S2 and S3 show that repeat buyers and shared reviews do not change our conclusions; seller-level
+  clustering is not adjusted for, so p-values may be somewhat optimistic.
+  \item \textbf{Scale ordinality.} Parametric mean differences assume equal intervals between star ratings, which we
+  mitigate by complementing t-tests with binary low-score proportions and non-parametric rank tests.
+  \item \textbf{Sample scope.} Findings apply to completed, single-review deliveries on Olist between 2016 and 2018,
+  excluding 2,971 undelivered orders and 525 multi-review orders.
+\end{itemize}
+
+\end{document}

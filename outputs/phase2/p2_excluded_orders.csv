@@ -1,0 +1,4 @@
+order_id,review_id,order_purchase_timestamp,review_creation_date,review_answer_timestamp,review_shared_across_orders,is_late,review_score,exclusion_reason,orders_sharing_this_review
+ebc94658c583ab37ad4f8e9091c4bef2,d25026282e14fc531f0711246e121cc2,2018-04-14 08:22:43,2018-03-30,2018-04-02 00:32:35,1,0,2,review answered before the order was purchased (review_answer_timestamp < order_purchase_timestamp),2
+4bb9c2002502ca416276dc1ff5efb1b3,0857872f03ef22e3dbe8391c4dd331f6,2018-06-23 14:53:03,2018-05-18,2018-05-21 18:15:06,0,0,1,review answered before the order was purchased (review_answer_timestamp < order_purchase_timestamp),1
+4a62fb19d5fa08fb514619dfcc617b3d,a935b3d67f406bac4853776d80a05220,2018-05-09 19:23:46,2018-05-05,2018-05-08 02:06:50,1,0,3,review answered before the order was purchased (review_answer_timestamp < order_purchase_timestamp),2

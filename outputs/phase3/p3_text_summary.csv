@@ -1,0 +1,21 @@
+scope,group,variable,orders,with_text,pct,ci_low,ci_high,table,messages,mean,p10,p25,median,p75,p90,max,share_ge_190_chars,phrase,meaning,share_pct
+all orders,On time or early,has_comment,88943.0,34952.0,39.297,38.977,39.619,comment availability,,,,,,,,,,,,
+all orders,On time or early,has_any_text,88943.0,36579.0,41.126,40.803,41.45,comment availability,,,,,,,,,,,,
+all orders,Late,has_comment,6353.0,3744.0,58.933,57.718,60.137,comment availability,,,,,,,,,,,,
+all orders,Late,has_any_text,6353.0,3818.0,60.098,58.888,61.295,comment availability,,,,,,,,,,,,
+reviews answered after delivery,On time or early,has_comment,88769.0,34886.0,39.3,38.979,39.622,comment availability,,,,,,,,,,,,
+reviews answered after delivery,On time or early,has_any_text,88769.0,36512.0,41.131,40.808,41.456,comment availability,,,,,,,,,,,,
+reviews answered after delivery,Late,has_comment,1903.0,821.0,43.142,40.933,45.379,comment availability,,,,,,,,,,,,
+reviews answered after delivery,Late,has_any_text,1903.0,852.0,44.771,42.55,47.014,comment availability,,,,,,,,,,,,
+all orders,On time or early,,,,,,,message length (has_comment = 1 only),34952.0,65.276,11.0,27.0,50.0,89.0,151.0,207.0,4.749,,,
+all orders,Late,,,,,,,message length (has_comment = 1 only),3744.0,84.0,20.0,35.0,70.0,122.0,187.0,208.0,8.654,,,
+all orders,On time or early,,,,,,,phrase share (messages with text),34952.0,,,,,,,,,nao recebi,I didn't receive (it),1.937
+all orders,Late,,,,,,,phrase share (messages with text),3744.0,,,,,,,,,nao recebi,I didn't receive (it),24.412
+all orders,On time or early,,,,,,,phrase share (messages with text),34952.0,,,,,,,,,ainda nao recebi,I still haven't received (it),0.403
+all orders,Late,,,,,,,phrase share (messages with text),3744.0,,,,,,,,,ainda nao recebi,I still haven't received (it),7.532
+all orders,On time or early,,,,,,,phrase share (messages with text),34952.0,,,,,,,,,antes do prazo,before the deadline,11.642
+all orders,Late,,,,,,,phrase share (messages with text),3744.0,,,,,,,,,antes do prazo,before the deadline,0.855
+all orders,On time or early,,,,,,,phrase share (messages with text),34952.0,,,,,,,,,dentro do prazo,within the deadline,2.904
+all orders,Late,,,,,,,phrase share (messages with text),3744.0,,,,,,,,,dentro do prazo,within the deadline,0.855
+all orders,On time or early,,,,,,,phrase share (messages with text),34952.0,,,,,,,,,recomendo,I recommend,11.562
+all orders,Late,,,,,,,phrase share (messages with text),3744.0,,,,,,,,,recomendo,I recommend,4.995

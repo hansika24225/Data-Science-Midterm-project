@@ -1,0 +1,80 @@
+feature,group,meaning,in
+order_id,identifier,order key (one row per order),analysis_table_final and analysis_table_audited
+customer_id,identifier,per-order customer key,analysis_table_final and analysis_table_audited
+customer_unique_id,identifier,real-person key; repeats across a customer's orders,analysis_table_final and analysis_table_audited
+review_id,identifier,review key; may be shared across orders (D5),analysis_table_final and analysis_table_audited
+order_status,raw,always 'delivered' in this sample,analysis_table_final and analysis_table_audited
+order_purchase_timestamp,raw timestamp,when the order was placed,analysis_table_final and analysis_table_audited
+order_approved_at,raw timestamp,payment approval time; unused,analysis_table_final and analysis_table_audited
+order_delivered_carrier_date,raw timestamp,hand-over to carrier; unused,analysis_table_final and analysis_table_audited
+order_delivered_customer_date,raw timestamp,actual arrival at the customer,analysis_table_final and analysis_table_audited
+order_estimated_delivery_date,raw timestamp,"promised date (midnight, no time of day)",analysis_table_final and analysis_table_audited
+review_creation_date,raw timestamp,when Olist created/sent the survey (not the answer),analysis_table_final and analysis_table_audited
+review_answer_timestamp,raw timestamp,when the customer submitted the review,analysis_table_final and analysis_table_audited
+customer_city,raw,"customer city (not encoded: ~4,100 levels)",analysis_table_final and analysis_table_audited
+customer_state,location,customer state (27); one-hot in X,analysis_table_final and analysis_table_audited
+seller_states,location,'|'-joined sorted set of seller states in the order,analysis_table_final and analysis_table_audited
+dominant_category,product,category with the largest share of item price; EDA label only,analysis_table_final and analysis_table_audited
+payment_types,payment,'|'-joined set of payment types used; missing if no payment record,analysis_table_final and analysis_table_audited
+purchase_yearmonth,time,YYYY-MM of purchase,analysis_table_final and analysis_table_audited
+purchase_month,time,1-12; one-hot in X,analysis_table_final and analysis_table_audited
+purchase_weekday,time,Mon..Sun; one-hot in X,analysis_table_final and analysis_table_audited
+purchase_hour,time,0-23,analysis_table_final and analysis_table_audited
+purchase_year,time,2016-2018,analysis_table_final and analysis_table_audited
+is_weekend,time,1 if purchased Sat/Sun,analysis_table_final and analysis_table_audited
+delay_calendar_days,delivery,"delivery date - estimated date, whole days; > 0 means late",analysis_table_final and analysis_table_audited
+payment_missing,payment,1 if the order has no payment record,analysis_table_final and analysis_table_audited
+is_late,delivery,1 if delivered on a later calendar day than promised (D3),analysis_table_final and analysis_table_audited
+delay_days,delivery,"delivery timestamp - estimated date, days; negative = early",analysis_table_final and analysis_table_audited
+wait_days,delivery,"delivery - purchase timestamp, days",analysis_table_final and analysis_table_audited
+promised_days,delivery,"estimated date - purchase timestamp, days",analysis_table_final and analysis_table_audited
+items_price_total,order,"sum of item prices, BRL",analysis_table_final and analysis_table_audited
+freight_total,order,"sum of freight, BRL",analysis_table_final and analysis_table_audited
+freight_ratio,order,freight_total / items_price_total,analysis_table_final and analysis_table_audited
+n_items,order,item rows (units),analysis_table_final and analysis_table_audited
+n_products,order,distinct products,analysis_table_final and analysis_table_audited
+n_sellers,order,distinct sellers,analysis_table_final and analysis_table_audited
+n_categories,order,distinct categories ('unknown' counts as one),analysis_table_final and analysis_table_audited
+n_seller_states,order,distinct seller states,analysis_table_final and analysis_table_audited
+payment_total,payment,"sum of payment values, BRL",analysis_table_final and analysis_table_audited
+n_payment_records,payment,payment records,analysis_table_final and analysis_table_audited
+max_installments,payment,largest instalment count,analysis_table_final and analysis_table_audited
+weight_total_g,product,"sum of item weights, g; missing if any item unknown",analysis_table_final and analysis_table_audited
+volume_total_cm3,product,"sum of item L x H x W, cm3; missing if any unknown",analysis_table_final and analysis_table_audited
+same_state,location,1 if every seller is in the customer's state,analysis_table_final and analysis_table_audited
+review_score,outcome,1-5 stars,analysis_table_final and analysis_table_audited
+low_score,outcome,1 if score is 1 or 2,analysis_table_final and analysis_table_audited
+has_comment,outcome/text,1 if the message has non-blank text,analysis_table_final and analysis_table_audited
+comment_len_chars,outcome/text,characters in the trimmed message; 0 if none,analysis_table_final and analysis_table_audited
+has_title,outcome/text,1 if the title has non-blank text,analysis_table_final and analysis_table_audited
+review_before_delivery,review timing,1 if review_answer_timestamp < order_delivered_customer_date (D4),analysis_table_final and analysis_table_audited
+review_lag_days,review timing,"answer timestamp - delivery timestamp, days",analysis_table_final and analysis_table_audited
+survey_sent_before_delivery,survey timing,1 if the survey was created before the delivery day,analysis_table_final and analysis_table_audited
+survey_lag_days,survey timing,"survey date - delivery date, whole days",analysis_table_final and analysis_table_audited
+review_shared_across_orders,data quality,1 if the review_id is attached to another order (D5),analysis_table_final and analysis_table_audited
+review_comment_title,raw text,"review title, unchanged (Portuguese)",analysis_table_final and analysis_table_audited
+review_comment_message,raw text,"review message, unchanged (Portuguese)",analysis_table_final and analysis_table_audited
+has_any_text,outcome/text,message or title contains text (Phase 2),analysis_table_final and analysis_table_audited
+flag_title_only,quality flag,title but no message (Phase 2),analysis_table_final and analysis_table_audited
+flag_whitespace_comment,quality flag,message of spaces only (Phase 2),analysis_table_final and analysis_table_audited
+flag_category_unknown,quality flag,order has an item with no category (Phase 2),analysis_table_final and analysis_table_audited
+flag_dims_missing,quality flag,weight or size missing for an item (Phase 2),analysis_table_final and analysis_table_audited
+flag_zero_weight_product,quality flag,order contains a product recorded as 0 g (Phase 2),analysis_table_final and analysis_table_audited
+flag_payment_mismatch,quality flag,payment differs from price + freight by > 1 BRL (Phase 2),analysis_table_final and analysis_table_audited
+flag_installments_zero,quality flag,card payment recorded with 0 instalments (Phase 2),analysis_table_final and analysis_table_audited
+flag_wait_over_60,quality flag,waiting time over 60 days (Phase 2),analysis_table_final and analysis_table_audited
+flag_delay_over_30,quality flag,more than 30 days late (Phase 2),analysis_table_final and analysis_table_audited
+flag_promised_day_positive_delay,quality flag,"delay_days > 0 on the promised day, is_late = 0 (Phase 2)",analysis_table_final and analysis_table_audited
+flag_answered_over_60,quality flag,review answered over 60 days after delivery (Phase 2),analysis_table_final and analysis_table_audited
+flag_review_before_purchase,quality flag,1 if the review was answered before purchase (Phase 2); always 0 in the final table because these orders are excluded,analysis_table_final and analysis_table_audited
+flag_lifecycle_inconsistent,quality flag,carrier date before purchase or after customer delivery (Phase 2),analysis_table_final and analysis_table_audited
+flag_repeat_customer,quality flag,customer has more than one order in the sample (recomputed for the final sample) (Phase 2),analysis_table_final and analysis_table_audited
+flag_sparse_period_2016,quality flag,"purchased in 2016 (only a few months, thin data) (Phase 2)",analysis_table_final and analysis_table_audited
+excluded_from_primary,audit,1 if the order is excluded from the primary sample by the Phase 2 rule,analysis_table_audited only
+exclusion_reason,audit,why the order is excluded; empty if retained,analysis_table_audited only
+cat__<category> (X),product,multi-hot: order contains this English category (74),X_encoded_final (and Phase 1 X_encoded)
+seller_state__<UF> (X),location,multi-hot: a seller of the order is in this state (22),X_encoded_final (and Phase 1 X_encoded)
+pay__<type> (X),payment,multi-hot: order used this payment type (4),X_encoded_final (and Phase 1 X_encoded)
+cust_state_<UF> (X),location,one-hot customer state (27),X_encoded_final (and Phase 1 X_encoded)
+month_<m> (X),time,one-hot purchase month (12),X_encoded_final (and Phase 1 X_encoded)
+wday_<day> (X),time,one-hot purchase weekday (7),X_encoded_final (and Phase 1 X_encoded)

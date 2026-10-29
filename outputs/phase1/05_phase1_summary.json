@@ -1,0 +1,31 @@
+{
+  "original_orders": 99441,
+  "eligible_orders": 95299,
+  "unique_order_ids": 95299,
+  "row_uniqueness_verified": true,
+  "late_orders": 6353,
+  "on_time_or_early_orders": 88946,
+  "late_share": 0.0667,
+  "answered_before_delivery_all": 4627,
+  "late_answered_before_delivery": 4450,
+  "late_share_answered_before_delivery": 0.7005,
+  "mean_score_by_group": {
+    "on time / answered after delivery": 4.292,
+    "on time / answered before delivery": 3.938,
+    "late / answered after delivery": 3.723,
+    "late / answered before delivery": 1.653
+  },
+  "X_instances": 95299,
+  "X_attributes": 167,
+  "X_product": 15914933,
+  "review_rule": "exactly_one",
+  "late_rule": "calendar_day",
+  "imputed_values": {
+    "payment_total": 1,
+    "n_payment_records": 1,
+    "max_installments": 1,
+    "weight_total_g": 16,
+    "volume_total_cm3": 16
+  },
+  "dropped_constant_columns": []
+}

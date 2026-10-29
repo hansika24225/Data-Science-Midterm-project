@@ -1,0 +1,12 @@
+measure,Phase 1 table,audited (Phase 2),final primary (Phase 2)
+rows,95299,95299,95296
+unique order_id,95299,95299,95296
+columns,55,73,71
+late orders,6353,6353,6353
+on time or early,88946,88946,88943
+orders excluded by the Phase 2 rule,0,3 marked,3
+missing cells in the original 55 columns,140755,140755,140753
+original values changed,0,0,0
+outcomes table rows,95299,-,95296
+encoded matrix (instances x attributes),95299 x 167,-,95296 x 167
+instances x attributes,15914933,-,15914432

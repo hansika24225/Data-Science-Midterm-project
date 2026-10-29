@@ -1,0 +1,5 @@
+delivered rule,review rule,orders,late (timestamp),"late (calendar day, D3)"
+status delivered + date (D1),exactly one review (D2),95299,7622,6353
+status delivered + date (D1),"at least one review, keep one",95824,7661,6381
+any status + date,exactly one review (D2),95305,7623,6354
+any status + date,"at least one review, keep one",95830,7662,6382

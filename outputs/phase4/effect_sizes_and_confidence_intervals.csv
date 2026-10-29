@@ -1,0 +1,61 @@
+role,sample,test,effect,estimate,ci_low,ci_high,ci_method,practical_threshold,practical_verdict
+primary sample,Primary,T1,"mean difference (stars, late - on time)",-2.01861560069814,-2.058023356754909,-1.979207844641371,Welch t-interval,0.5,clearly important (whole CI beyond threshold)
+primary sample,Primary,T1,Hedges' g,-1.7087208187033072,-1.7353052660741897,-1.6821363713324247,normal approximation,,
+"primary sample, sensitivity measure",Primary,T1 (MWU),probability of superiority P(late > on time),0.1812717690028122,0.17522891504402,0.18707580162315524,"percentile bootstrap, 5000 resamples, seed 558",,
+primary sample,Primary,T2,"risk difference, low score (pp)",53.116741781111145,51.902984938012,54.315186830350385,Newcombe hybrid score,5.0,clearly important (whole CI beyond threshold)
+primary sample,Primary,T2,"risk ratio, low score",6.743905610015037,6.55713838785906,6.935992530064909,log (Katz),,
+primary sample,Primary,T2,"odds ratio, low score",16.261828666008167,15.382418216273829,17.191514873963904,logit (Woolf),,
+primary sample,Primary,T3,Mantel-Haenszel common OR (waiting bands),7.030977142452714,6.480033837714006,7.628762567562738,Robins-Breslow-Greenland,1.5,clearly important (whole CI beyond threshold)
+primary sample,Primary,T3,crude OR in the same bands (not stratified),12.856048214448569,,,point estimate for comparison,,
+primary sample,Primary,T4,Spearman rho (late orders),-0.4024507786896166,-0.42437378754386784,-0.37963612898451427,"BCa bootstrap, 5000 resamples, seed 558",0.1,clearly important (whole CI beyond threshold)
+primary sample,Primary,T5,"risk difference, has_comment (pp)",19.635709755547477,18.37913789615602,20.88160951032351,Newcombe hybrid score,5.0,clearly important (whole CI beyond threshold)
+primary sample,Primary,T5,"risk ratio, has_comment",1.4996735330703992,1.4669052874183368,1.5331737673057215,log (Katz),,
+"primary sample, sensitivity measure",Primary,T5 (sens.),"risk difference, has_any_text (pp)",18.971252348039634,17.718764397028085,20.211755278023684,Newcombe hybrid score,,
+sensitivity sample,S1 after delivery,T1,"mean difference (stars, late - on time)",-0.5693265569393366,-0.6324457723005117,-0.5062073415781616,Welch t-interval,0.5,clearly important (whole CI beyond threshold)
+sensitivity sample,S1 after delivery,T1,Hedges' g,-0.49363324312148577,-0.5390991168102545,-0.448167369432717,normal approximation,,
+sensitivity sample,S1 after delivery,T1 (MWU),probability of superiority P(late > on time),0.3759895870538047,0.36363705246775024,0.38835834421468385,"percentile bootstrap, 5000 resamples, seed 558",,
+sensitivity sample,S1 after delivery,T2,"risk difference, low score (pp)",10.15748320815698,8.432825770504623,12.004389729628707,Newcombe hybrid score,5.0,clearly important (whole CI beyond threshold)
+sensitivity sample,S1 after delivery,T2,"risk ratio, low score",2.1001337565945426,1.911906342779201,2.306892182373635,log (Katz),,
+sensitivity sample,S1 after delivery,T2,"odds ratio, low score",2.3647682782264763,2.1059941938420126,2.6553392341050883,logit (Woolf),,
+sensitivity sample,S1 after delivery,T3,Mantel-Haenszel common OR (waiting bands),1.4074051618797148,1.2351917442901417,1.6036289902698593,Robins-Breslow-Greenland,1.5,below the practical threshold
+sensitivity sample,S1 after delivery,T3,crude OR in the same bands (not stratified),2.132911809425609,,,point estimate for comparison,,
+sensitivity sample,S1 after delivery,T4,Spearman rho (late orders),-0.03443315373296334,-0.07875598522097307,0.011684992302996668,"BCa bootstrap, 5000 resamples, seed 558",0.1,below the practical threshold
+sensitivity sample,S1 after delivery,T5,"risk difference, has_comment (pp)",3.84265118093004,1.610127355420354,6.102388547512922,Newcombe hybrid score,5.0,below the practical threshold
+sensitivity sample,S1 after delivery,T5,"risk ratio, has_comment",1.097777991939454,1.0419203143883373,1.1566302172485112,log (Katz),,
+sensitivity sample,S1 after delivery,T5 (sens.),"risk difference, has_any_text (pp)",3.639937479180033,1.3950383559407364,5.9055749803040305,Newcombe hybrid score,,
+sensitivity sample,S2 one order per customer,T1,"mean difference (stars, late - on time)",-2.02253058319323,-2.062341068754042,-1.9827200976324175,Welch t-interval,0.5,clearly important (whole CI beyond threshold)
+sensitivity sample,S2 one order per customer,T1,Hedges' g,-1.711043254581504,-1.7379584346057735,-1.6841280745572345,normal approximation,,
+sensitivity sample,S2 one order per customer,T1 (MWU),probability of superiority P(late > on time),0.1806138402598018,0.17443728237867262,0.1864605624533953,"percentile bootstrap, 5000 resamples, seed 558",,
+sensitivity sample,S2 one order per customer,T2,"risk difference, low score (pp)",53.26836706294331,52.040918567579354,54.47991742195261,Newcombe hybrid score,5.0,clearly important (whole CI beyond threshold)
+sensitivity sample,S2 one order per customer,T2,"risk ratio, low score",6.745122085815932,6.5563144843074666,6.939366935716418,log (Katz),,
+sensitivity sample,S2 one order per customer,T2,"odds ratio, low score",16.336806118933755,15.442183550112714,17.283257468189028,logit (Woolf),,
+sensitivity sample,S2 one order per customer,T3,Mantel-Haenszel common OR (waiting bands),7.038439307560483,6.480635579227024,7.644254530374521,Robins-Breslow-Greenland,1.5,clearly important (whole CI beyond threshold)
+sensitivity sample,S2 one order per customer,T3,crude OR in the same bands (not stratified),12.922663588170803,,,point estimate for comparison,,
+sensitivity sample,S2 one order per customer,T4,Spearman rho (late orders),-0.403858404283468,-0.42643484284969724,-0.3813841135639455,"BCa bootstrap, 5000 resamples, seed 558",0.1,clearly important (whole CI beyond threshold)
+sensitivity sample,S2 one order per customer,T5,"risk difference, has_comment (pp)",19.696362302222475,18.424791296316062,20.95691286320214,Newcombe hybrid score,5.0,clearly important (whole CI beyond threshold)
+sensitivity sample,S2 one order per customer,T5,"risk ratio, has_comment",1.501001819636525,1.467851923073584,1.5349003718539358,log (Katz),,
+sensitivity sample,S2 one order per customer,T5 (sens.),"risk difference, has_any_text (pp)",19.06132857485173,17.79391623587462,20.3163810369214,Newcombe hybrid score,,
+sensitivity sample,S3 no shared reviews,T1,"mean difference (stars, late - on time)",-2.0223527273328488,-2.0619358626696944,-1.9827695919960031,Welch t-interval,0.5,clearly important (whole CI beyond threshold)
+sensitivity sample,S3 no shared reviews,T1,Hedges' g,-1.7173557864627556,-1.7440880780996646,-1.6906234948258465,normal approximation,,
+sensitivity sample,S3 no shared reviews,T1 (MWU),probability of superiority P(late > on time),0.18050405830200603,0.17448878591180592,0.1863797858507862,"percentile bootstrap, 5000 resamples, seed 558",,
+sensitivity sample,S3 no shared reviews,T2,"risk difference, low score (pp)",53.16452502571178,51.94428143423841,54.36935112708049,Newcombe hybrid score,5.0,clearly important (whole CI beyond threshold)
+sensitivity sample,S3 no shared reviews,T2,"risk ratio, low score",6.807445240818302,6.617372104356063,7.0029779156947125,log (Katz),,
+sensitivity sample,S3 no shared reviews,T2,"odds ratio, low score",16.41216050190995,15.519717386833872,17.355922509836642,logit (Woolf),,
+sensitivity sample,S3 no shared reviews,T3,Mantel-Haenszel common OR (waiting bands),7.106676353937708,6.546626363201786,7.7146374327244684,Robins-Breslow-Greenland,1.5,clearly important (whole CI beyond threshold)
+sensitivity sample,S3 no shared reviews,T3,crude OR in the same bands (not stratified),12.97379603895463,,,point estimate for comparison,,
+sensitivity sample,S3 no shared reviews,T4,Spearman rho (late orders),-0.4055592323906092,-0.4280217731826441,-0.38391002900146753,"BCa bootstrap, 5000 resamples, seed 558",0.1,clearly important (whole CI beyond threshold)
+sensitivity sample,S3 no shared reviews,T5,"risk difference, has_comment (pp)",19.634355976554264,18.37134087075747,20.886552248300692,Newcombe hybrid score,5.0,clearly important (whole CI beyond threshold)
+sensitivity sample,S3 no shared reviews,T5,"risk ratio, has_comment",1.4992388300837864,1.466334031510255,1.5328820182369756,log (Katz),,
+sensitivity sample,S3 no shared reviews,T5 (sens.),"risk difference, has_any_text (pp)",18.941632953667163,17.682652689231013,20.18849086991613,Newcombe hybrid score,,
+sensitivity sample,S4 S1+S3+S2,T1,"mean difference (stars, late - on time)",-0.567447977724588,-0.6312147549187059,-0.50368120053047,Welch t-interval,0.5,clearly important (whole CI beyond threshold)
+sensitivity sample,S4 S1+S3+S2,T1,Hedges' g,-0.4925939126086553,-0.5387697371808088,-0.44641808803650185,normal approximation,,
+sensitivity sample,S4 S1+S3+S2,T1 (MWU),probability of superiority P(late > on time),0.37533731461937686,0.36303276977478766,0.3879866738990008,"percentile bootstrap, 5000 resamples, seed 558",,
+sensitivity sample,S4 S1+S3+S2,T2,"risk difference, low score (pp)",9.979973672435841,8.236982610845454,11.849881450624146,Newcombe hybrid score,5.0,clearly important (whole CI beyond threshold)
+sensitivity sample,S4 S1+S3+S2,T2,"risk ratio, low score",2.0839528562205194,1.8932501166522726,2.293864645115614,log (Katz),,
+sensitivity sample,S4 S1+S3+S2,T2,"odds ratio, low score",2.3413098723855525,2.0803689237261707,2.6349806786729273,logit (Woolf),,
+sensitivity sample,S4 S1+S3+S2,T3,Mantel-Haenszel common OR (waiting bands),1.3806917672385155,1.2085913950311569,1.5772987992116816,Robins-Breslow-Greenland,1.5,below the practical threshold
+sensitivity sample,S4 S1+S3+S2,T3,crude OR in the same bands (not stratified),2.10899732744352,,,point estimate for comparison,,
+sensitivity sample,S4 S1+S3+S2,T4,Spearman rho (late orders),-0.03896425054755035,-0.08575779443955697,0.006458539368776771,"BCa bootstrap, 5000 resamples, seed 558",0.1,below the practical threshold
+sensitivity sample,S4 S1+S3+S2,T5,"risk difference, has_comment (pp)",3.4918398339308157,1.227461365054237,5.7856165379132936,Newcombe hybrid score,5.0,below the practical threshold
+sensitivity sample,S4 S1+S3+S2,T5,"risk ratio, has_comment",1.0887908150796826,1.0321942482442887,1.148490646037117,log (Katz),,
+sensitivity sample,S4 S1+S3+S2,T5 (sens.),"risk difference, has_any_text (pp)",3.3097504718512694,1.0322928139137049,5.609940533220258,Newcombe hybrid score,,

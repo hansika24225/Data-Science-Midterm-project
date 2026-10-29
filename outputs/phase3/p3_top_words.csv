@@ -1,0 +1,101 @@
+rank,word,messages_containing,share_pct,scope,group,messages_in_group
+1,produto,13832,39.57,all messages,On time or early,34952
+2,prazo,7469,21.37,all messages,On time or early,34952
+3,nao,5873,16.8,all messages,On time or early,34952
+4,antes,5436,15.55,all messages,On time or early,34952
+5,entrega,5207,14.9,all messages,On time or early,34952
+6,chegou,4706,13.46,all messages,On time or early,34952
+7,bom,4281,12.25,all messages,On time or early,34952
+8,recomendo,4041,11.56,all messages,On time or early,34952
+9,recebi,3329,9.52,all messages,On time or early,34952
+10,entregue,2980,8.53,all messages,On time or early,34952
+11,veio,2809,8.04,all messages,On time or early,34952
+12,bem,2807,8.03,all messages,On time or early,34952
+13,qualidade,2638,7.55,all messages,On time or early,34952
+14,otimo,2329,6.66,all messages,On time or early,34952
+15,tudo,2168,6.2,all messages,On time or early,34952
+16,comprei,2110,6.04,all messages,On time or early,34952
+17,loja,1843,5.27,all messages,On time or early,34952
+18,gostei,1744,4.99,all messages,On time or early,34952
+19,excelente,1724,4.93,all messages,On time or early,34952
+20,rapida,1644,4.7,all messages,On time or early,34952
+21,super,1599,4.57,all messages,On time or early,34952
+22,compra,1588,4.54,all messages,On time or early,34952
+23,boa,1227,3.51,all messages,On time or early,34952
+24,ainda,1201,3.44,all messages,On time or early,34952
+25,rapido,1176,3.36,all messages,On time or early,34952
+1,nao,2253,60.18,all messages,Late,3744
+2,produto,1908,50.96,all messages,Late,3744
+3,recebi,1058,28.26,all messages,Late,3744
+4,entrega,773,20.65,all messages,Late,3744
+5,ainda,754,20.14,all messages,Late,3744
+6,prazo,568,15.17,all messages,Late,3744
+7,chegou,477,12.74,all messages,Late,3744
+8,entregue,434,11.59,all messages,Late,3744
+9,dia,335,8.95,all messages,Late,3744
+10,comprei,327,8.73,all messages,Late,3744
+11,loja,289,7.72,all messages,Late,3744
+12,compra,263,7.02,all messages,Late,3744
+13,correios,229,6.12,all messages,Late,3744
+14,nada,211,5.64,all messages,Late,3744
+15,recomendo,187,4.99,all messages,Late,3744
+16,dias,185,4.94,all messages,Late,3744
+17,pedido,183,4.89,all messages,Late,3744
+18,atraso,178,4.75,all messages,Late,3744
+19,hoje,178,4.75,all messages,Late,3744
+20,lannister,176,4.7,all messages,Late,3744
+21,pois,170,4.54,all messages,Late,3744
+22,momento,162,4.33,all messages,Late,3744
+23,nem,161,4.3,all messages,Late,3744
+24,bom,148,3.95,all messages,Late,3744
+25,data,142,3.79,all messages,Late,3744
+1,produto,13809,39.58,after-delivery messages,On time or early,34886
+2,prazo,7459,21.38,after-delivery messages,On time or early,34886
+3,nao,5861,16.8,after-delivery messages,On time or early,34886
+4,antes,5430,15.56,after-delivery messages,On time or early,34886
+5,entrega,5196,14.89,after-delivery messages,On time or early,34886
+6,chegou,4697,13.46,after-delivery messages,On time or early,34886
+7,bom,4276,12.26,after-delivery messages,On time or early,34886
+8,recomendo,4039,11.58,after-delivery messages,On time or early,34886
+9,recebi,3316,9.51,after-delivery messages,On time or early,34886
+10,entregue,2969,8.51,after-delivery messages,On time or early,34886
+11,bem,2804,8.04,after-delivery messages,On time or early,34886
+12,veio,2803,8.03,after-delivery messages,On time or early,34886
+13,qualidade,2636,7.56,after-delivery messages,On time or early,34886
+14,otimo,2324,6.66,after-delivery messages,On time or early,34886
+15,tudo,2164,6.2,after-delivery messages,On time or early,34886
+16,comprei,2098,6.01,after-delivery messages,On time or early,34886
+17,loja,1839,5.27,after-delivery messages,On time or early,34886
+18,gostei,1744,5.0,after-delivery messages,On time or early,34886
+19,excelente,1723,4.94,after-delivery messages,On time or early,34886
+20,rapida,1640,4.7,after-delivery messages,On time or early,34886
+21,super,1596,4.57,after-delivery messages,On time or early,34886
+22,compra,1586,4.55,after-delivery messages,On time or early,34886
+23,boa,1227,3.52,after-delivery messages,On time or early,34886
+24,ainda,1195,3.43,after-delivery messages,On time or early,34886
+25,rapido,1176,3.37,after-delivery messages,On time or early,34886
+1,produto,344,41.9,after-delivery messages,Late,821
+2,nao,217,26.43,after-delivery messages,Late,821
+3,entrega,154,18.76,after-delivery messages,Late,821
+4,prazo,131,15.96,after-delivery messages,Late,821
+5,bom,93,11.33,after-delivery messages,Late,821
+6,recebi,89,10.84,after-delivery messages,Late,821
+7,chegou,88,10.72,after-delivery messages,Late,821
+8,entregue,82,9.99,after-delivery messages,Late,821
+9,comprei,71,8.65,after-delivery messages,Late,821
+10,veio,70,8.53,after-delivery messages,Late,821
+11,recomendo,70,8.53,after-delivery messages,Late,821
+12,qualidade,54,6.58,after-delivery messages,Late,821
+13,atraso,53,6.46,after-delivery messages,Late,821
+14,gostei,52,6.33,after-delivery messages,Late,821
+15,loja,47,5.72,after-delivery messages,Late,821
+16,tudo,42,5.12,after-delivery messages,Late,821
+17,bem,42,5.12,after-delivery messages,Late,821
+18,correios,40,4.87,after-delivery messages,Late,821
+19,dia,40,4.87,after-delivery messages,Late,821
+20,otimo,40,4.87,after-delivery messages,Late,821
+21,ainda,39,4.75,after-delivery messages,Late,821
+22,demorou,36,4.38,after-delivery messages,Late,821
+23,produtos,35,4.26,after-delivery messages,Late,821
+24,dias,35,4.26,after-delivery messages,Late,821
+25,compra,32,3.9,after-delivery messages,Late,821

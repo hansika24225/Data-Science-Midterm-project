@@ -1,0 +1,56 @@
+{
+  "alpha_familywise": 0.05,
+  "multiple_testing": "Holm-Bonferroni across the 5 primary p-values only",
+  "sidedness": "two-sided for all tests",
+  "practical_thresholds": {
+    "T1_mean_diff_stars": 0.5,
+    "T2_risk_diff_pp": 5.0,
+    "T3_common_or": 1.5,
+    "T4_abs_spearman_rho": 0.1,
+    "T5_risk_diff_pp": 5.0
+  },
+  "wait_bins": [
+    0,
+    7,
+    14,
+    21,
+    28,
+    42,
+    60,
+    null
+  ],
+  "wait_labels": [
+    "0-7",
+    "8-14",
+    "15-21",
+    "22-28",
+    "29-42",
+    "43-60",
+    "60+"
+  ],
+  "fine_wait_bins": [
+    7,
+    10.5,
+    14,
+    17.5,
+    21,
+    24.5,
+    28,
+    31.5,
+    35,
+    38.5,
+    42
+  ],
+  "min_orders_per_group_per_stratum": 100,
+  "heterogeneity_rule": "material if Breslow-Day-Tarone p < 0.05 AND max stratum OR / min stratum OR > 2",
+  "sensitivity_samples": {
+    "S1": "reviews answered after delivery (review_before_delivery == 0)",
+    "S2": "one order per customer_unique_id: earliest order_purchase_timestamp, ties by order_id",
+    "S3": "exclude orders whose review_id is shared with another order (review_shared_across_orders == 1)",
+    "S4": "S1 and S3, then S2 within that subset"
+  },
+  "bootstrap": {
+    "seed": 558,
+    "resamples": 5000
+  }
+}
